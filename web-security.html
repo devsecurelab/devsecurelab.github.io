@@ -27,201 +27,56 @@
             --code-bg: #0f172a;
         }
 
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            transition: background-color 0.3s, color 0.3s;
-        }
+        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 0; line-height: 1.6; transition: background-color 0.3s, color 0.3s; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* ---------------- Navbar ---------------- */
-        .navbar {
-            background-color: var(--nav-bg);
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding: 15px 0;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .logo {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: var(--accent-color);
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .nav-links a {
-            color: var(--text-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--accent-color);
-        }
-
-        .nav-controls {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .theme-toggle {
-            background: none;
-            border: 1px solid var(--border-color);
-            color: var(--text-color);
-            padding: 6px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 5px;
-        }
-
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background-color: var(--text-color);
-            border-radius: 2px;
-        }
+        .navbar { background-color: var(--nav-bg); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000; padding: 10px 0; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+        .logo-container { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .site-logo { height: 38px; width: auto; object-fit: contain; }
+        .logo-text { font-size: 1.4rem; font-weight: bold; color: var(--accent-color); }
+        .nav-links { display: flex; list-style: none; margin: 0; padding: 0; align-items: center; gap: 20px; }
+        .nav-links a { color: var(--text-color); text-decoration: none; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent-color); }
+        .nav-controls { display: flex; align-items: center; gap: 15px; }
+        .theme-toggle { background: none; border: 1px solid var(--border-color); color: var(--text-color); padding: 6px 12px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; }
+        .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
+        .hamburger span { width: 25px; height: 3px; background-color: var(--text-color); border-radius: 2px; }
 
         @media (max-width: 768px) {
             .hamburger { display: flex; }
-            .nav-links {
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: var(--nav-bg);
-                flex-direction: column;
-                padding: 20px 0;
-                border-bottom: 1px solid var(--border-color);
-                display: none;
-            }
+            .nav-links { position: absolute; top: 100%; left: 0; width: 100%; background-color: var(--nav-bg); flex-direction: column; padding: 20px 0; border-bottom: 1px solid var(--border-color); display: none; }
             .nav-links.active { display: flex; }
         }
 
-        /* ---------------- Class Content ---------------- */
-        .class-header {
-            padding: 60px 0 30px;
-            border-bottom: 1px solid var(--border-color);
-        }
+        .class-header { padding: 50px 0 30px; border-bottom: 1px solid var(--border-color); text-align: center; }
+        .class-title { font-size: 2.2rem; color: var(--accent-color); margin-bottom: 10px; }
+        .class-subtitle { color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 20px; }
 
-        .class-title {
-            font-size: 2.2rem;
-            color: var(--accent-color);
-            margin-bottom: 10px;
-        }
+        .slider-box { background: var(--card-bg); border: 1px solid var(--accent-color); display: inline-block; padding: 8px 20px; border-radius: 30px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); }
+        .sliding-text { font-size: 1rem; font-weight: bold; color: var(--accent-color); transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; display: inline-block; }
+        .sliding-text.fade-out { opacity: 0; transform: translateY(-10px); }
+        .sliding-text.fade-in { opacity: 1; transform: translateY(0); }
 
-        .class-subtitle {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-        }
-
-        section {
-            padding: 40px 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        section h2 {
-            color: var(--accent-color);
-            font-size: 1.6rem;
-            margin-bottom: 20px;
-        }
-
-        pre {
-            background-color: var(--code-bg);
-            color: #38bdf8;
-            padding: 20px;
-            border-radius: 8px;
-            overflow-x: auto;
-            border: 1px solid var(--border-color);
-            font-family: 'Courier New', Courier, monospace;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-        }
-
-        .card h3 {
-            margin-top: 0;
-            color: var(--text-color);
-        }
-
-        .card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        .btn {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: #ffffff;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-        }
+        section { padding: 40px 0; border-bottom: 1px solid var(--border-color); }
+        section h2 { color: var(--accent-color); font-size: 1.6rem; margin-bottom: 20px; }
+        pre { background-color: var(--code-bg); color: #38bdf8; padding: 20px; border-radius: 8px; overflow-x: auto; border: 1px solid var(--border-color); font-family: monospace; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .card { background-color: var(--card-bg); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color); }
+        .card h3 { margin-top: 0; color: var(--text-color); }
+        .card p { color: var(--text-secondary); font-size: 0.95rem; }
+        .btn { display: inline-block; background-color: var(--accent-color); color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: bold; margin-top: 10px; }
+        footer { text-align: center; padding: 20px; color: var(--text-secondary); font-size: 0.85rem; }
     </style>
 </head>
 <body>
 
-    <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="logo">DevSecure Lab</a>
-            
+            <a href="index.html" class="logo-container">
+                <img src="devsecure_logo.png" alt="DevSecure Lab Logo" class="site-logo">
+                <span class="logo-text">DevSecure Lab</span>
+            </a>
             <ul class="nav-links" id="navLinks">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="python.html">Python</a></li>
@@ -230,32 +85,27 @@
                 <li><a href="web-security.html" class="active">Web Security</a></li>
                 <li><a href="ethical-hacking.html">Ethical Hacking</a></li>
             </ul>
-
             <div class="nav-controls">
                 <button class="theme-toggle" id="themeToggle">🌙 Dark</button>
-                <div class="hamburger" id="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
+                <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
             </div>
         </div>
     </nav>
 
     <div class="container">
-        <!-- Class Header -->
         <header class="class-header">
             <h1 class="class-title">🛡️ Web Application Security & OWASP</h1>
-            <p class="class-subtitle">Discover common web vulnerabilities, secure coding practices, and exploitation techniques for modern web applications.</p>
+            <p class="class-subtitle">Discover common web vulnerabilities and secure coding practices.</p>
+            <div class="slider-box">
+                <span class="sliding-text" id="slidingText">🛡️ Master Web Security Fundamentals</span>
+            </div>
         </header>
 
-        <!-- Module 1: Introduction -->
         <section>
             <h2>Why Web Application Security?</h2>
-            <p>Web apps are the primary entry point for modern cyber attacks. Understanding how vulnerabilities like SQLi, XSS, and CSRF work helps developers build secure code and allows security researchers to identify flaws before attackers do.</p>
+            <p>Web apps are the primary entry point for modern cyber attacks. Understanding vulnerabilities like SQLi, XSS, and CSRF helps developers build secure code and security researchers identify flaws.</p>
         </section>
 
-        <!-- Module 2: Code Example -->
         <section>
             <h2>Vulnerability Example: Vulnerable vs Secure SQL Query</h2>
             <p>Comparing insecure concatenated SQL queries against secure parameterized statements in Python/Flask:</p>
@@ -267,7 +117,6 @@ query = f"SELECT * FROM users WHERE username = '{user_input}'"
 cursor.execute("SELECT * FROM users WHERE username = %s", (user_input,))</code></pre>
         </section>
 
-        <!-- Module 3: OWASP Top Vulnerabilities -->
         <section>
             <h2>Key Web Vulnerabilities</h2>
             <div class="grid">
@@ -286,9 +135,8 @@ cursor.execute("SELECT * FROM users WHERE username = %s", (user_input,))</code><
             </div>
         </section>
 
-        <!-- Module 4: Recommended Resources -->
         <section>
-            <h2>Web Security Resources & Tools</h2>
+            <h2>Recommended Resources</h2>
             <div class="grid">
                 <div class="card">
                     <h3>Burp Suite Basics Guide</h3>
@@ -304,23 +152,16 @@ cursor.execute("SELECT * FROM users WHERE username = %s", (user_input,))</code><
         </section>
     </div>
 
-    <footer>
-        &copy; 2026 DevSecure Lab. All rights reserved.
-    </footer>
+    <footer>&copy; 2026 DevSecure Lab. All rights reserved.</footer>
 
-    <!-- JavaScript -->
     <script>
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('navLinks');
-
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
+        hamburger.addEventListener('click', () => navLinks.classList.toggle('active'));
 
         const themeToggleBtn = document.getElementById('themeToggle');
         themeToggleBtn.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            if (currentTheme === 'light') {
+            if (document.documentElement.getAttribute('data-theme') === 'light') {
                 document.documentElement.removeAttribute('data-theme');
                 themeToggleBtn.innerHTML = '🌙 Dark';
             } else {
@@ -328,6 +169,25 @@ cursor.execute("SELECT * FROM users WHERE username = %s", (user_input,))</code><
                 themeToggleBtn.innerHTML = '☀️ Light';
             }
         });
+
+        // Sliding Text Logic
+        const textArray = [
+            "🛡️ Master Web Security Fundamentals",
+            "💉 Prevent SQL Injection & XSS Attacks",
+            "🔒 OWASP Top 10 Mitigation Strategies",
+            "🛠️ Hands-on Web Pentesting with Burp Suite"
+        ];
+        let index = 0;
+        const slidingTextElem = document.getElementById('slidingText');
+        setInterval(() => {
+            slidingTextElem.classList.add('fade-out');
+            setTimeout(() => {
+                index = (index + 1) % textArray.length;
+                slidingTextElem.textContent = textArray[index];
+                slidingTextElem.classList.remove('fade-out');
+                slidingTextElem.classList.add('fade-in');
+            }, 500);
+        }, 3000);
     </script>
 </body>
 </html>
