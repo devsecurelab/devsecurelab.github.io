@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python for Security & Automation | DevSecure Lab</title>
+    <title>Python Programming | DevSecure Lab</title>
     <style>
         :root {
             --bg-color: #0b0f19;
@@ -43,14 +43,14 @@
             padding: 0 20px;
         }
 
-        /* ---------------- Navbar ---------------- */
+        /* Navbar */
         .navbar {
             background-color: var(--nav-bg);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
             z-index: 1000;
-            padding: 15px 0;
+            padding: 10px 0;
         }
 
         .nav-container {
@@ -62,11 +62,23 @@
             padding: 0 20px;
         }
 
-        .logo {
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .site-logo {
+            height: 38px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-text {
             font-size: 1.4rem;
             font-weight: bold;
             color: var(--accent-color);
-            text-decoration: none;
         }
 
         .nav-links {
@@ -135,10 +147,11 @@
             .nav-links.active { display: flex; }
         }
 
-        /* ---------------- Class Content ---------------- */
+        /* Header & Sliding Box */
         .class-header {
-            padding: 60px 0 30px;
+            padding: 50px 0 30px;
             border-bottom: 1px solid var(--border-color);
+            text-align: center;
         }
 
         .class-title {
@@ -150,80 +163,48 @@
         .class-subtitle {
             color: var(--text-secondary);
             font-size: 1.1rem;
-        }
-
-        section {
-            padding: 40px 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        section h2 {
-            color: var(--accent-color);
-            font-size: 1.6rem;
             margin-bottom: 20px;
         }
 
-        /* Code Block Styling */
-        pre {
-            background-color: var(--code-bg);
-            color: #38bdf8;
-            padding: 20px;
-            border-radius: 8px;
-            overflow-x: auto;
-            border: 1px solid var(--border-color);
-            font-family: 'Courier New', Courier, monospace;
-        }
-
-        /* Grid for Modules & Resources */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-        }
-
-        .card h3 {
-            margin-top: 0;
-            color: var(--text-color);
-        }
-
-        .card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        .btn {
+        .slider-box {
+            background: var(--card-bg);
+            border: 1px solid var(--accent-color);
             display: inline-block;
-            background-color: var(--accent-color);
-            color: #ffffff;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: bold;
-            margin-top: 10px;
+            padding: 8px 20px;
+            border-radius: 30px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
         }
 
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
+        .sliding-text {
+            font-size: 1rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            display: inline-block;
         }
+
+        .sliding-text.fade-out { opacity: 0; transform: translateY(-10px); }
+        .sliding-text.fade-in { opacity: 1; transform: translateY(0); }
+
+        section { padding: 40px 0; border-bottom: 1px solid var(--border-color); }
+        section h2 { color: var(--accent-color); font-size: 1.6rem; margin-bottom: 20px; }
+        pre { background-color: var(--code-bg); color: #38bdf8; padding: 20px; border-radius: 8px; overflow-x: auto; border: 1px solid var(--border-color); font-family: monospace; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .card { background-color: var(--card-bg); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color); }
+        .card h3 { margin-top: 0; color: var(--text-color); }
+        .card p { color: var(--text-secondary); font-size: 0.95rem; }
+        .btn { display: inline-block; background-color: var(--accent-color); color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: bold; margin-top: 10px; }
+        footer { text-align: center; padding: 20px; color: var(--text-secondary); font-size: 0.85rem; }
     </style>
 </head>
 <body>
 
-    <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="logo">DevSecure Lab</a>
-            
+            <a href="index.html" class="logo-container">
+                <img src="devsecure_logo.png" alt="DevSecure Lab Logo" class="site-logo">
+                <span class="logo-text">DevSecure Lab</span>
+            </a>
             <ul class="nav-links" id="navLinks">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="python.html" class="active">Python</a></li>
@@ -232,103 +213,91 @@
                 <li><a href="web-security.html">Web Security</a></li>
                 <li><a href="ethical-hacking.html">Ethical Hacking</a></li>
             </ul>
-
             <div class="nav-controls">
                 <button class="theme-toggle" id="themeToggle">🌙 Dark</button>
-                <div class="hamburger" id="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
+                <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
             </div>
         </div>
     </nav>
 
     <div class="container">
-        <!-- Class Header -->
         <header class="class-header">
-            <h1 class="class-title">🐍 Python for Security & Automation</h1>
-            <p class="class-subtitle">Master Python programming tailored for cybersecurity, network scripting, and security tools development.</p>
+            <h1 class="class-title">🐍 Python Programming</h1>
+            <p class="class-subtitle">Master Python syntax, automation, and security scripting fundamentals.</p>
+            <div class="slider-box">
+                <span class="sliding-text" id="slidingText">🐍 Python for Cybersecurity</span>
+            </div>
         </header>
 
-        <!-- Module 1: Introduction -->
         <section>
-            <h2>Why Python for Security?</h2>
-            <p>Python is the standard scripting language for ethical hackers and cybersecurity engineers. Its clean syntax and massive library support allow fast automation, payload writing, and custom exploit development.</p>
+            <h2>Why Learn Python for Security?</h2>
+            <p>Python is the most popular programming language in cybersecurity due to its clear syntax and massive ecosystem of libraries for network interaction, web requests, and automation.</p>
         </section>
 
-        <!-- Module 2: Code Example -->
         <section>
-            <h2>Sample Script: Basic Port Scanner</h2>
-            <p>Here is a basic Python script using the <code>socket</code> library to scan open ports on a target host:</p>
+            <h2>Sample Code: Simple Port Scanner</h2>
+            <p>Basic Python script to check if a port is open on a target host:</p>
             <pre><code>import socket
 
 target = "127.0.0.1"
-ports = [21, 22, 80, 443]
+port = 80
 
-for port in ports:
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.settimeout(1)
-    result = s.connect_ex((target, port))
-    if result == 0:
-        print(f"Port {port}: OPEN")
-    s.close()</code></pre>
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.settimeout(2)
+
+result = s.connect_ex((target, port))
+if result == 0:
+    print(f"Port {port} is OPEN")
+else:
+    print(f"Port {port} is CLOSED")
+s.close()</code></pre>
         </section>
 
-        <!-- Module 3: Learning Syllabus -->
         <section>
             <h2>Python Learning Modules</h2>
             <div class="grid">
                 <div class="card">
                     <h3>1. Python Basics</h3>
-                    <p>Variables, Data Types, Control Structures, and File Handling.</p>
+                    <p>Variables, data types, loops, functions, and object-oriented programming basics.</p>
                 </div>
                 <div class="card">
-                    <h3>2. Network Scripting</h3>
-                    <p>Socket programming, HTTP requests, and packet sniffing using Scapy.</p>
+                    <h3>2. Networking & Requests</h3>
+                    <p>Using <code>requests</code> and <code>socket</code> modules to interact with web servers.</p>
                 </div>
                 <div class="card">
-                    <h3>3. Web Security Automation</h3>
-                    <p>Automating web recon, form submissions, and API interactions.</p>
+                    <h3>3. Automation & Scripting</h3>
+                    <p>Writing scripts to parse log files, automate tasks, and inspect packet data.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Module 4: Recommended Courses & Tools (Affiliate Space) -->
         <section>
-            <h2>Recommended Python Resources</h2>
+            <h2>Recommended Resources</h2>
             <div class="grid">
                 <div class="card">
-                    <h3>Automate the Boring Stuff with Python</h3>
-                    <p>A practical handbook for practical beginners. Perfect for scripting basics.</p>
+                    <h3>Python Security Cheat Sheet</h3>
+                    <p>Essential Python libraries and syntax snippets for security enthusiasts.</p>
                     <a href="https://pinterest.com/devsecurelab" target="_blank" class="btn">View Resource</a>
                 </div>
                 <div class="card">
-                    <h3>Black Hat Python (2nd Edition)</h3>
-                    <p>Python programming for hackers and reverse engineers.</p>
+                    <h3>Build Your Own Scanner</h3>
+                    <p>Step-by-step tutorial on building custom automation scripts.</p>
                     <a href="https://pinterest.com/devsecurelab" target="_blank" class="btn">View Resource</a>
                 </div>
             </div>
         </section>
     </div>
 
-    <footer>
-        &copy; 2026 DevSecure Lab. All rights reserved.
-    </footer>
+    <footer>&copy; 2026 DevSecure Lab. All rights reserved.</footer>
 
-    <!-- JavaScript -->
     <script>
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('navLinks');
-
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
+        hamburger.addEventListener('click', () => navLinks.classList.toggle('active'));
 
         const themeToggleBtn = document.getElementById('themeToggle');
         themeToggleBtn.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            if (currentTheme === 'light') {
+            if (document.documentElement.getAttribute('data-theme') === 'light') {
                 document.documentElement.removeAttribute('data-theme');
                 themeToggleBtn.innerHTML = '🌙 Dark';
             } else {
@@ -336,6 +305,25 @@ for port in ports:
                 themeToggleBtn.innerHTML = '☀️ Light';
             }
         });
+
+        // Sliding Text Logic
+        const textArray = [
+            "🐍 Python for Cybersecurity",
+            "⚡ Automate Repetitive Tasks",
+            "📡 Network & Socket Programming",
+            "🔍 Build Custom Security Tools"
+        ];
+        let index = 0;
+        const slidingTextElem = document.getElementById('slidingText');
+        setInterval(() => {
+            slidingTextElem.classList.add('fade-out');
+            setTimeout(() => {
+                index = (index + 1) % textArray.length;
+                slidingTextElem.textContent = textArray[index];
+                slidingTextElem.classList.remove('fade-out');
+                slidingTextElem.classList.add('fade-in');
+            }, 500);
+        }, 3000);
     </script>
 </body>
 </html>
