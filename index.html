@@ -142,6 +142,13 @@
                 display: flex; /* Show when toggled */
             }
         }
+        /* Align the last item on mobile screens */
+@media (max-width: 768px) {
+    .skills-grid a:last-child {
+        grid-column: 1 / -1; /* মোবাইল স্ক্রিনে শেষ কার্ডটি পুরো জায়গা জুড়ে ছড়াবে */
+        text-align: center;
+    }
+}
 
         /* ---------------- Hero & Sections ---------------- */
         header.hero {
