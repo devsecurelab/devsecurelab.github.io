@@ -1,1 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux Basics & Terminal | DevSecure Lab</title>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --nav-bg: #151c2c;
+            --card-bg: #151c2c;
+            --accent-color: #38bdf8;
+            --text-color: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border-color: #1e293b;
+            --code-bg: #030712;
+        }
 
+        [data-theme="light"] {
+            --bg-color: #f8fafc;
+            --nav-bg: #ffffff;
+            --card-bg: #ffffff;
+            --accent-color: #0284c7;
+            --text-color: #0f172a;
+            --text-secondary: #475569;
+            --border-color: #e2e8f0;
+            --code-bg: #0f172a;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ---------------- Navbar ---------------- */
+        .navbar {
+            background-color: var(--nav-bg);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-color);
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-color);
+            border-radius: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--nav-bg);
+                flex-direction: column;
+                padding: 20px 0;
+                border-bottom: 1px solid var(--border-color);
+                display: none;
+            }
+            .nav-links.active { display: flex; }
+        }
+
+        /* ---------------- Class Content ---------------- */
+        .class-header {
+            padding: 60px 0 30px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .class-title {
+            font-size: 2.2rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .class-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        section {
+            padding: 40px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        section h2 {
+            color: var(--accent-color);
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            color: #38bdf8;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: var(--text-color);
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: #ffffff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">DevSecure Lab</a>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="python.html">Python</a></li>
+                <li><a href="linux.html" class="active">Linux</a></li>
+                <li><a href="networking.html">Networking</a></li>
+                <li><a href="web-security.html">Web Security</a></li>
+                <li><a href="ethical-hacking.html">Ethical Hacking</a></li>
+            </ul>
+
+            <div class="nav-controls">
+                <button class="theme-toggle" id="themeToggle">🌙 Dark</button>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Class Header -->
+        <header class="class-header">
+            <h1 class="class-title">🐧 Linux Basics & Terminal Mastery</h1>
+            <p class="class-subtitle">Master the Linux command line, system architecture, and terminal utilities essential for server management and cybersecurity.</p>
+        </header>
+
+        <!-- Module 1: Introduction -->
+        <section>
+            <h2>Why Learn Linux?</h2>
+            <p>Linux powers over 90% of cloud servers and top cybersecurity OS distributions like Kali Linux and Parrot OS. Learning command-line navigation, file permissions, and process management is fundamental for any tech professional.</p>
+        </section>
+
+        <!-- Module 2: Essential Commands -->
+        <section>
+            <h2>Essential Terminal Commands</h2>
+            <p>Here are basic commands every developer and hacker should know by heart:</p>
+            <pre><code># Check current directory & list files
+pwd
+ls -la
+
+# Manage Files & Directories
+mkdir security_lab
+cd security_lab
+touch notes.txt
+
+# Inspect System & Network Status
+whoami
+uname -a
+ifconfig / ip a</code></pre>
+        </section>
+
+        <!-- Module 3: Learning Modules -->
+        <section>
+            <h2>Linux Learning Modules</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>1. Command Line Navigation</h3>
+                    <p>Learn file path management, searching with grep, and manipulating text with awk/sed.</p>
+                </div>
+                <div class="card">
+                    <h3>2. File Permissions & Users</h3>
+                    <p>Understanding chmod, chown, root privileges (sudo), and Linux user groups.</p>
+                </div>
+                <div class="card">
+                    <h3>3. Bash Scripting Automation</h3>
+                    <p>Automate system tasks, log checking, and tool execution using shell scripts.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Module 4: Recommended Resources -->
+        <section>
+            <h2>Recommended Linux Guides</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Kali Linux Installation & Setup</h3>
+                    <p>Step-by-step guide to installing Kali Linux on VirtualBox or VMware.</p>
+                    <a href="https://pinterest.com/devsecurelab" target="_blank" class="btn">View Resource</a>
+                </div>
+                <div class="card">
+                    <h3>Linux Command Line Cheat Sheet</h3>
+                    <p>Comprehensive reference guide for terminal commands and flags.</p>
+                    <a href="https://pinterest.com/devsecurelab" target="_blank" class="btn">View Resource</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        &copy; 2026 DevSecure Lab. All rights reserved.
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        const themeToggleBtn = document.getElementById('themeToggle');
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'light') {
+                document.documentElement.removeAttribute('data-theme');
+                themeToggleBtn.innerHTML = '🌙 Dark';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                themeToggleBtn.innerHTML = '☀️ Light';
+            }
+        });
+    </script>
+</body>
+</html>
