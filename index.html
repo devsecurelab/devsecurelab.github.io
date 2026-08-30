@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DevSecure Lab | Cybersecurity & Developer Resources</title>
     <style>
-        /* CSS Variables for Dynamic Theme Switching */
         :root {
             --bg-color: #0b0f19;
             --nav-bg: #151c2c;
@@ -16,7 +15,6 @@
             --border-color: #1e293b;
         }
 
-        /* Light Mode Theme */
         [data-theme="light"] {
             --bg-color: #f8fafc;
             --nav-bg: #ffffff;
@@ -43,14 +41,14 @@
             padding: 0 20px;
         }
 
-        /* ---------------- Header & Mobile Navbar ---------------- */
+        /* ---------------- Navbar & Brand Logo ---------------- */
         .navbar {
             background-color: var(--nav-bg);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
             z-index: 1000;
-            padding: 15px 0;
+            padding: 10px 0;
         }
 
         .nav-container {
@@ -62,11 +60,23 @@
             padding: 0 20px;
         }
 
-        .logo {
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .site-logo {
+            height: 38px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-text {
             font-size: 1.4rem;
             font-weight: bold;
             color: var(--accent-color);
-            text-decoration: none;
         }
 
         .nav-links {
@@ -89,7 +99,6 @@
             color: var(--accent-color);
         }
 
-        /* Controls: Theme & Hamburger */
         .nav-controls {
             display: flex;
             align-items: center;
@@ -120,11 +129,8 @@
             border-radius: 2px;
         }
 
-        /* Mobile Styles */
         @media (max-width: 768px) {
-            .hamburger {
-                display: flex;
-            }
+            .hamburger { display: flex; }
 
             .nav-links {
                 position: absolute;
@@ -135,57 +141,65 @@
                 flex-direction: column;
                 padding: 20px 0;
                 border-bottom: 1px solid var(--border-color);
-                display: none; /* Hidden by default */
+                display: none;
             }
 
-            .nav-links.active {
-                display: flex; /* Show when toggled */
-            }
+            .nav-links.active { display: flex; }
         }
-        /* Align the last item on mobile screens */
-@media (max-width: 768px) {
-    .skills-grid a:last-child {
-        grid-column: 1 / -1; /* মোবাইল স্ক্রিনে শেষ কার্ডটি পুরো জায়গা জুড়ে ছড়াবে */
-        text-align: center;
-    }
-}
 
-        /* ---------------- Hero & Sections ---------------- */
+        /* ---------------- Hero Section & Animated Slider ---------------- */
         header.hero {
-            padding: 70px 20px;
+            padding: 50px 20px 30px;
             text-align: center;
             background: radial-gradient(circle at top, var(--card-bg), var(--bg-color));
             border-bottom: 1px solid var(--border-color);
         }
 
-        h1 {
-            font-size: 2.5rem;
-            color: var(--accent-color);
-            margin-bottom: 10px;
+        .hero-main-logo {
+            max-width: 280px;
+            width: 100%;
+            height: auto;
+            margin-bottom: 15px;
+            filter: drop-shadow(0px 0px 12px rgba(56, 189, 248, 0.35));
         }
 
         .hero-tagline {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             color: var(--text-color);
             font-weight: 600;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
-        .btn {
+        /* Dynamic Sliding Text Box */
+        .slider-box {
+            background: var(--card-bg);
+            border: 1px solid var(--accent-color);
             display: inline-block;
-            background-color: var(--accent-color);
-            color: #ffffff;
-            padding: 12px 28px;
-            text-decoration: none;
-            border-radius: 6px;
+            padding: 10px 25px;
+            border-radius: 30px;
+            min-width: 260px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .sliding-text {
+            font-size: 1.1rem;
             font-weight: bold;
-            transition: 0.3s;
+            color: var(--accent-color);
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            display: inline-block;
         }
 
-        .btn:hover {
-            opacity: 0.9;
+        .sliding-text.fade-out {
+            opacity: 0;
+            transform: translateY(-10px);
         }
 
+        .sliding-text.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ---------------- Content Sections ---------------- */
         section {
             padding: 40px 0;
             border-bottom: 1px solid var(--border-color);
@@ -198,7 +212,6 @@
             font-size: 1.8rem;
         }
 
-        /* What You'll Learn Grid with Links */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -223,7 +236,14 @@
             border-color: var(--accent-color);
         }
 
-        /* Roadmap Section */
+        /* Mobile alignment for 5th card */
+        @media (max-width: 768px) {
+            .skills-grid a:last-child {
+                grid-column: 1 / -1;
+                text-align: center;
+            }
+        }
+
         .roadmap-container {
             display: flex;
             flex-wrap: wrap;
@@ -241,7 +261,6 @@
             color: var(--accent-color);
         }
 
-        /* Cards Grid */
         .card-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -291,10 +310,12 @@
 </head>
 <body>
 
-    <!-- Mobile Friendly Navigation Bar -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="logo">DevSecure Lab</a>
+            <a href="index.html" class="logo-container">
+                <img src="devsecure_logo.png" alt="DevSecure Lab Logo" class="site-logo">
+                <span class="logo-text">DevSecure Lab</span>
+            </a>
             
             <ul class="nav-links" id="navLinks">
                 <li><a href="index.html">Home</a></li>
@@ -316,18 +337,19 @@
         </div>
     </nav>
 
-    <!-- 1. Hero Section -->
     <header class="hero">
         <div class="container">
-            <h1>DevSecure Lab</h1>
+            <img src="devsecure_logo.png" alt="DevSecure Lab Main Logo" class="hero-main-logo">
             <p class="hero-tagline">Learn Python. Build Secure. Think Like an Ethical Hacker.</p>
-            <a href="https://pinterest.com/devsecurelab" target="_blank" class="btn">Follow on Pinterest</a>
+            
+            <div class="slider-box">
+                <span class="sliding-text" id="slidingText">🚀 Welcome to DevSecure Lab!</span>
+            </div>
         </div>
     </header>
 
     <div class="container">
         
-        <!-- 2. What You'll Learn (Linked Pages) -->
         <section>
             <h2>What You'll Learn</h2>
             <div class="skills-grid">
@@ -339,7 +361,6 @@
             </div>
         </section>
 
-        <!-- 3. Cybersecurity Roadmap -->
         <section>
             <h2>Cybersecurity Roadmap</h2>
             <div class="roadmap-container">
@@ -355,7 +376,6 @@
             </div>
         </section>
 
-        <!-- 4. Latest Articles / Tutorials -->
         <section>
             <h2>Latest Tutorials</h2>
             <div class="card-grid">
@@ -370,7 +390,6 @@
             </div>
         </section>
 
-        <!-- 5. Recommended Resources -->
         <section>
             <h2>Recommended Resources</h2>
             <div class="card-grid">
@@ -385,7 +404,6 @@
             </div>
         </section>
 
-        <!-- 6. About DevSecureLab -->
         <section>
             <h2>About DevSecureLab</h2>
             <p class="about-text">
@@ -393,35 +411,24 @@
             </p>
         </section>
 
-        <!-- 7. Call to Action -->
-        <div class="cta-section">
-            <h2>Start Your Cybersecurity Journey</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 20px;">Explore our curated pins, guides, and resources to level up your skills today.</p>
-            <a href="https://pinterest.com/devsecurelab" target="_blank" class="btn">Explore Resources</a>
-        </div>
-
     </div>
 
     <footer>
         &copy; 2026 DevSecure Lab. All rights reserved.
     </footer>
 
-    <!-- JavaScript for Dynamic Theme Toggle & Mobile Menu -->
     <script>
-        // Hamburger Menu Toggle
+        // Hamburger Menu
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('navLinks');
-
         hamburger.addEventListener('click', () => {
             navLinks.classList.toggle('active');
         });
 
-        // Dynamic Light/Dark Mode Toggle
+        // Dark/Light Theme Toggle
         const themeToggleBtn = document.getElementById('themeToggle');
-        
         themeToggleBtn.addEventListener('click', () => {
             const currentTheme = document.documentElement.getAttribute('data-theme');
-            
             if (currentTheme === 'light') {
                 document.documentElement.removeAttribute('data-theme');
                 themeToggleBtn.innerHTML = '🌙 Dark';
@@ -430,6 +437,33 @@
                 themeToggleBtn.innerHTML = '☀️ Light';
             }
         });
+
+        // Dynamic Multi-Text Slider Logic
+        const textArray = [
+            "🚀 Welcome to DevSecure Lab!",
+            "🐍 Master Python & Automation",
+            "🐧 Learn Linux Command Line",
+            "🌐 Understand Computer Networking",
+            "🛡️ Secure Web Apps & OWASP Top 10",
+            "💻 Build Ethical Hacking Labs"
+        ];
+
+        let index = 0;
+        const slidingTextElem = document.getElementById('slidingText');
+
+        function changeText() {
+            slidingTextElem.classList.add('fade-out');
+            
+            setTimeout(() => {
+                index = (index + 1) % textArray.length;
+                slidingTextElem.textContent = textArray[index];
+                slidingTextElem.classList.remove('fade-out');
+                slidingTextElem.classList.add('fade-in');
+            }, 500);
+        }
+
+        // Change text every 3 seconds
+        setInterval(changeText, 3000);
     </script>
 </body>
 </html>
