@@ -1,470 +1,242 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevSecure Lab | Cybersecurity & Developer Resources</title>
-    <style>
-        :root {
-            --bg-color: #0b0f19;
-            --nav-bg: #151c2c;
-            --card-bg: #151c2c;
-            --accent-color: #38bdf8;
-            --text-color: #f8fafc;
-            --text-secondary: #94a3b8;
-            --border-color: #1e293b;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevSecure Lab | Cyber Security & Software Engineering</title>
+  <meta name="description" content="Learn systems, code, networks, and secure application principles through guided practice at DevSecure Lab.">
+  
+  <!-- Open Graph & Pinterest Verification -->
+  <meta property="og:title" content="DevSecure Lab - Cyber Security & Software Engineering">
+  <meta property="og:description" content="Learn the foundations. Practice safely. Build real security skills.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://devsecurelab.github.io">
 
-        [data-theme="light"] {
-            --bg-color: #f8fafc;
-            --nav-bg: #ffffff;
-            --card-bg: #ffffff;
-            --accent-color: #0284c7;
-            --text-color: #0f172a;
-            --text-secondary: #475569;
-            --border-color: #e2e8f0;
-        }
-
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* ---------------- Navbar & Brand Logo ---------------- */
-        .navbar {
-            background-color: var(--nav-bg);
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding: 10px 0;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-        }
-
-        .site-logo {
-            height: 38px;
-            width: auto;
-            object-fit: contain;
-        }
-
-        .logo-text {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: var(--accent-color);
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .nav-links a {
-            color: var(--text-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent-color);
-        }
-
-        .nav-controls {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .theme-toggle {
-            background: none;
-            border: 1px solid var(--border-color);
-            color: var(--text-color);
-            padding: 6px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 5px;
-        }
-
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background-color: var(--text-color);
-            border-radius: 2px;
-        }
-
-        @media (max-width: 768px) {
-            .hamburger { display: flex; }
-
-            .nav-links {
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: var(--nav-bg);
-                flex-direction: column;
-                padding: 20px 0;
-                border-bottom: 1px solid var(--border-color);
-                display: none;
-            }
-
-            .nav-links.active { display: flex; }
-        }
-
-        /* ---------------- Hero Section & Animated Slider ---------------- */
-        header.hero {
-            padding: 50px 20px 30px;
-            text-align: center;
-            background: radial-gradient(circle at top, var(--card-bg), var(--bg-color));
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .hero-main-logo {
-            max-width: 280px;
-            width: 100%;
-            height: auto;
-            margin-bottom: 15px;
-            filter: drop-shadow(0px 0px 12px rgba(56, 189, 248, 0.35));
-        }
-
-        .hero-tagline {
-            font-size: 1.15rem;
-            color: var(--text-color);
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-
-        /* Dynamic Sliding Text Box */
-        .slider-box {
-            background: var(--card-bg);
-            border: 1px solid var(--accent-color);
-            display: inline-block;
-            padding: 10px 25px;
-            border-radius: 30px;
-            min-width: 260px;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .sliding-text {
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: var(--accent-color);
-            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-            display: inline-block;
-        }
-
-        .sliding-text.fade-out {
-            opacity: 0;
-            transform: translateY(-10px);
-        }
-
-        .sliding-text.fade-in {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ---------------- Content Sections ---------------- */
-        section {
-            padding: 40px 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        section h2 {
-            text-align: center;
-            color: var(--accent-color);
-            margin-bottom: 25px;
-            font-size: 1.8rem;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 15px;
-            text-align: center;
-        }
-
-        .skill-card {
-            background: var(--card-bg);
-            padding: 18px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            font-weight: bold;
-            color: var(--text-color);
-            text-decoration: none;
-            display: block;
-            transition: transform 0.2s, border-color 0.2s;
-        }
-
-        .skill-card:hover {
-            transform: translateY(-3px);
-            border-color: var(--accent-color);
-        }
-
-        /* Mobile alignment for 5th card */
-        @media (max-width: 768px) {
-            .skills-grid a:last-child {
-                grid-column: 1 / -1;
-                text-align: center;
-            }
-        }
-
-        .roadmap-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .roadmap-step {
-            background: var(--card-bg);
-            border: 1px solid var(--accent-color);
-            padding: 8px 14px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            color: var(--accent-color);
-        }
-
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-        }
-
-        .card h3 {
-            margin-top: 0;
-            color: var(--text-color);
-        }
-
-        .card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        .about-text {
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto;
-            color: var(--text-secondary);
-        }
-
-        .cta-section {
-            text-align: center;
-            background: var(--card-bg);
-            padding: 50px 20px;
-            border-radius: 12px;
-            margin: 40px auto;
-            border: 1px solid var(--border-color);
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-        }
-    </style>
-    <meta name="p:domain_verify" content="21355e5126ffc7a2ea7b039c8de54d18"/>
+  <!-- Shared CSS Assets -->
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/course.css">
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo-container">
-                <img src="devsecure_logo.png" alt="DevSecure Lab Logo" class="site-logo">
-                <span class="logo-text">DevSecure Lab</span>
-            </a>
-            
-            <ul class="nav-links" id="navLinks">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="python.html">Python</a></li>
-                <li><a href="linux.html">Linux</a></li>
-                <li><a href="networking.html">Networking</a></li>
-                <li><a href="web-security.html">Web Security</a></li>
-                <li><a href="ethical-hacking.html">Ethical Hacking</a></li>
-            </ul>
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        <img src="devsecure_logo.png" alt="DevSecure Lab Logo">
+        <span>DevSecure Lab</span>
+      </a>
+      
+      <button class="hamburger" aria-label="Toggle navigation">☰</button>
 
-            <div class="nav-controls">
-                <button class="theme-toggle" id="themeToggle">🌙 Dark</button>
-                <div class="hamburger" id="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <header class="hero">
-        <div class="container">
-            <img src="devsecure_logo.png" alt="DevSecure Lab Main Logo" class="hero-main-logo">
-            <p class="hero-tagline">Learn Python. Build Secure. Think Like an Ethical Hacker.</p>
-            
-            <div class="slider-box">
-                <span class="sliding-text" id="slidingText">🚀 Welcome to DevSecure Lab!</span>
-            </div>
-        </div>
-    </header>
-
-    <div class="container">
-        
-        <section>
-            <h2>What You'll Learn</h2>
-            <div class="skills-grid">
-                <a href="python.html" class="skill-card">🐍 Python</a>
-                <a href="linux.html" class="skill-card">🐧 Linux</a>
-                <a href="networking.html" class="skill-card">🌐 Networking</a>
-                <a href="web-security.html" class="skill-card">🛡️ Web Security</a>
-                <a href="ethical-hacking.html" class="skill-card">💻 Ethical Hacking</a>
-            </div>
-        </section>
-
-        <section>
-            <h2>Cybersecurity Roadmap</h2>
-            <div class="roadmap-container">
-                <div class="roadmap-step">1. Python</div> ➔
-                <div class="roadmap-step">2. Linux</div> ➔
-                <div class="roadmap-step">3. Networking</div> ➔
-                <div class="roadmap-step">4. OWASP</div> ➔
-                <div class="roadmap-step">5. CTF</div> ➔
-                <div class="roadmap-step">6. Forensics</div> ➔
-                <div class="roadmap-step">7. Incident Response</div> ➔
-                <div class="roadmap-step">8. Cloud Security</div> ➔
-                <div class="roadmap-step">9. Bug Bounty</div>
-            </div>
-        </section>
-
-        <section>
-            <h2>Latest Tutorials</h2>
-            <div class="card-grid">
-                <div class="card">
-                    <h3>Getting Started with Linux for Security</h3>
-                    <p>Essential Linux command line basics every beginner ethical hacker must know.</p>
-                </div>
-                <div class="card">
-                    <h3>Python Automation Tools</h3>
-                    <p>How to build simple network scanners using Python scripts from scratch.</p>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h2>Recommended Resources</h2>
-            <div class="card-grid">
-                <div class="card">
-                    <h3>Best VPNs for Security</h3>
-                    <p>Top-rated VPNs for privacy, encrypted browsing, and lab testing.</p>
-                </div>
-                <div class="card">
-                    <h3>Top Cybersecurity Courses</h3>
-                    <p>Hand-picked training programs to prepare for security certifications.</p>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h2>About DevSecureLab</h2>
-            <p class="about-text">
-                DevSecureLab is dedicated to empowering developers and security enthusiasts with actionable guides, programming resources, and ethical hacking fundamentals.
-            </p>
-        </section>
-
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="active">Dashboard</a></li>
+          <li><a href="linux.html">Linux</a></li>
+          <li><a href="networking.html">Networking</a></li>
+          <li><a href="python.html">Python</a></li>
+          <li><a href="web-security.html">Web Security</a></li>
+          <li><a href="ethical-hacking.html">Ethical Hacking</a></li>
+          <li>
+            <button class="theme-toggle-btn">☀️ Light Mode</button>
+          </li>
+        </ul>
+      </nav>
     </div>
+  </header>
 
-    <footer>
-        &copy; 2026 DevSecure Lab. All rights reserved.
-    </footer>
+  <main class="container">
+    
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1 class="hero-title">Build Your Cybersecurity Foundation</h1>
+      <p class="hero-subtitle">Learn systems, code, networks, and secure application principles through guided practice.</p>
+      
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="linux.html" class="btn btn-primary">Start the Learning Path</a>
+        <a href="#courses" class="btn btn-outline">Explore Courses</a>
+      </div>
+    </section>
 
-    <script>
-        // Hamburger Menu
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('navLinks');
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
+    <!-- Learner Status & Progress Tracker -->
+    <section class="card" style="margin-bottom: 3rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h2>Your Dashboard</h2>
+          <p id="overall-progress-counter" style="margin: 0;">0 modules completed across all courses</p>
+        </div>
+        <div style="min-width: 250px;">
+          <div class="progress-container" style="margin: 0;">
+            <div class="progress-info">
+              <span>Overall Completion</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" data-total="40" style="width: 0%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        // Dark/Light Theme Toggle
-        const themeToggleBtn = document.getElementById('themeToggle');
-        themeToggleBtn.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            if (currentTheme === 'light') {
-                document.documentElement.removeAttribute('data-theme');
-                themeToggleBtn.innerHTML = '🌙 Dark';
-            } else {
-                document.documentElement.setAttribute('data-theme', 'light');
-                themeToggleBtn.innerHTML = '☀️ Light';
-            }
-        });
+    <!-- Start Here Card -->
+    <section class="card" style="border-left: 4px solid var(--accent-green); margin-bottom: 3rem;">
+      <span class="badge badge-beginner">Recommended Entry</span>
+      <h2 style="margin-top: 0.5rem;">New to Cybersecurity?</h2>
+      <p>Begin your journey with <strong>Linux Foundations</strong>. Master file systems, permissions, shell navigation, and log analysis before moving to networking or scripting.</p>
+      <a href="linux.html" class="btn btn-outline">Start Linux Basics →</a>
+    </section>
 
-        // Dynamic Multi-Text Slider Logic
-        const textArray = [
-            "🚀 Welcome to DevSecure Lab!",
-            "🐍 Master Python & Automation",
-            "🐧 Learn Linux Command Line",
-            "🌐 Understand Computer Networking",
-            "🛡️ Secure Web Apps & OWASP Top 10",
-            "💻 Build Ethical Hacking Labs"
-        ];
+    <!-- 5-Stage Learning Path & Course Catalogue -->
+    <section id="courses" style="margin-bottom: 3rem;">
+      <h2>Structured Learning Path</h2>
+      <p>Follow our recommended sequence to build real-world security skills step-by-step.</p>
 
-        let index = 0;
-        const slidingTextElem = document.getElementById('slidingText');
+      <div class="course-grid">
+        
+        <!-- Course 1: Linux -->
+        <div class="course-card">
+          <div>
+            <div class="course-header">
+              <span class="badge badge-beginner">Stage 1</span>
+              <span style="font-size: 0.85rem; color: var(--text-secondary);">8 Modules</span>
+            </div>
+            <h3>Linux Basics & Terminal</h3>
+            <p>Build confidence with the command line, files, permissions, and system logs.</p>
+          </div>
+          <div>
+            <div class="progress-container">
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" data-course-id="linux" data-total="8"></div>
+              </div>
+            </div>
+            <a href="linux.html" class="btn btn-primary" style="width: 100%;">View Course</a>
+          </div>
+        </div>
 
-        function changeText() {
-            slidingTextElem.classList.add('fade-out');
-            
-            setTimeout(() => {
-                index = (index + 1) % textArray.length;
-                slidingTextElem.textContent = textArray[index];
-                slidingTextElem.classList.remove('fade-out');
-                slidingTextElem.classList.add('fade-in');
-            }, 500);
-        }
+        <!-- Course 2: Networking -->
+        <div class="course-card">
+          <div>
+            <div class="course-header">
+              <span class="badge badge-beginner">Stage 2</span>
+              <span style="font-size: 0.85rem; color: var(--text-secondary);">8 Modules</span>
+            </div>
+            <h3>Networking Fundamentals</h3>
+            <p>Understand IP addressing, OSI model, TCP/IP, ports, DNS, and traffic analysis.</p>
+          </div>
+          <div>
+            <div class="progress-container">
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" data-course-id="networking" data-total="8"></div>
+              </div>
+            </div>
+            <a href="networking.html" class="btn btn-primary" style="width: 100%;">View Course</a>
+          </div>
+        </div>
 
-        // Change text every 3 seconds
-        setInterval(changeText, 3000);
-    </script>
+        <!-- Course 3: Python -->
+        <div class="course-card">
+          <div>
+            <div class="course-header">
+              <span class="badge badge-intermediate">Stage 3</span>
+              <span style="font-size: 0.85rem; color: var(--text-secondary);">8 Modules</span>
+            </div>
+            <h3>Python for Automation</h3>
+            <p>Learn core syntax, data structures, parsing log files, and automation scripts.</p>
+          </div>
+          <div>
+            <div class="progress-container">
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" data-course-id="python" data-total="8"></div>
+              </div>
+            </div>
+            <a href="python.html" class="btn btn-primary" style="width: 100%;">View Course</a>
+          </div>
+        </div>
+
+        <!-- Course 4: Web Security -->
+        <div class="course-card">
+          <div>
+            <div class="course-header">
+              <span class="badge badge-intermediate">Stage 4</span>
+              <span style="font-size: 0.85rem; color: var(--text-secondary);">8 Modules</span>
+            </div>
+            <h3>Web Security & OWASP</h3>
+            <p>Understand SQL Injection, XSS, Broken Access Control, and secure coding practices.</p>
+          </div>
+          <div>
+            <div class="progress-container">
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" data-course-id="websec" data-total="8"></div>
+              </div>
+            </div>
+            <a href="web-security.html" class="btn btn-primary" style="width: 100%;">View Course</a>
+          </div>
+        </div>
+
+        <!-- Course 5: Ethical Hacking -->
+        <div class="course-card">
+          <div>
+            <div class="course-header">
+              <span class="badge badge-advanced">Stage 5</span>
+              <span style="font-size: 0.85rem; color: var(--text-secondary);">8 Modules</span>
+            </div>
+            <h3>Ethical Hacking Methodology</h3>
+            <p>Authorized assessment methodology, scope, lab setups, and vulnerability reporting.</p>
+          </div>
+          <div>
+            <div class="progress-container">
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" data-course-id="ethhack" data-total="8"></div>
+              </div>
+            </div>
+            <a href="ethical-hacking.html" class="btn btn-primary" style="width: 100%;">View Course</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Featured Projects -->
+    <section style="margin-bottom: 3rem;">
+      <h2>Hands-on Practical Projects</h2>
+      <div class="course-grid">
+        <div class="card">
+          <h3>🔍 Linux Log Investigation</h3>
+          <p>Analyze server access logs to identify suspicious authentication attempts.</p>
+        </div>
+        <div class="card">
+          <h3>🌐 Network Troubleshooting Case</h3>
+          <p>Use ping, traceroute, and packet captures to diagnose connection failures.</p>
+        </div>
+        <div class="card">
+          <h3>🐍 Python Log Analyzer</h3>
+          <p>Build a Python script that parses web logs and reports top IP addresses.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Safety & Responsible Practice -->
+    <section class="card" style="border-left: 4px solid var(--accent-cyan); margin-bottom: 3rem;">
+      <h2>🛡️ Safety & Responsible Practice</h2>
+      <p>All activities taught on DevSecure Lab are for defensive learning and authorized testing only. Practice exclusively on systems you own or have explicit written permission to test.</p>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer style="background-color: var(--bg-secondary); border-top: 1px solid var(--border-color); padding: 2rem 0; margin-top: auto;">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <p style="margin: 0; font-size: 0.9rem;">&copy; 2026 DevSecure Lab. Built for safe, hands-on security learning.</p>
+      <div style="display: flex; gap: 1rem; font-size: 0.9rem;">
+        <a href="https://github.com/devsecurelab/devsecurelab.github.io" target="_blank" rel="noopener">GitHub Repository</a>
+        <a href="index.html">Privacy & Terms</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Shared JS Scripts -->
+  <script src="assets/js/navigation.js"></script>
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/progress.js"></script>
 </body>
 </html>
