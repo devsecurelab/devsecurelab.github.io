@@ -1,203 +1,310 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linux Basics | DevSecure Lab</title>
-    <style>
-        :root {
-            --bg-color: #0b0f19;
-            --nav-bg: #151c2c;
-            --card-bg: #151c2c;
-            --accent-color: #38bdf8;
-            --text-color: #f8fafc;
-            --text-secondary: #94a3b8;
-            --border-color: #1e293b;
-            --code-bg: #030712;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux Basics & Terminal Track | DevSecure Lab</title>
+  <meta name="description" content="Master Linux CLI, system navigation, permissions, log auditing, and shell automation.">
 
-        [data-theme="light"] {
-            --bg-color: #f8fafc;
-            --nav-bg: #ffffff;
-            --card-bg: #ffffff;
-            --accent-color: #0284c7;
-            --text-color: #0f172a;
-            --text-secondary: #475569;
-            --border-color: #e2e8f0;
-            --code-bg: #0f172a;
-        }
-
-        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 0; line-height: 1.6; transition: background-color 0.3s, color 0.3s; }
-        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-
-        /* Navbar */
-        .navbar { background-color: var(--nav-bg); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000; padding: 10px 0; }
-        .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-        .logo-container { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-        .site-logo { height: 38px; width: auto; object-fit: contain; }
-        .logo-text { font-size: 1.4rem; font-weight: bold; color: var(--accent-color); }
-        .nav-links { display: flex; list-style: none; margin: 0; padding: 0; align-items: center; gap: 20px; }
-        .nav-links a { color: var(--text-color); text-decoration: none; font-weight: 500; transition: color 0.2s; }
-        .nav-links a:hover, .nav-links a.active { color: var(--accent-color); }
-        .nav-controls { display: flex; align-items: center; gap: 15px; }
-        .theme-toggle { background: none; border: 1px solid var(--border-color); color: var(--text-color); padding: 6px 12px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; }
-        .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
-        .hamburger span { width: 25px; height: 3px; background-color: var(--text-color); border-radius: 2px; }
-
-        @media (max-width: 768px) {
-            .hamburger { display: flex; }
-            .nav-links { position: absolute; top: 100%; left: 0; width: 100%; background-color: var(--nav-bg); flex-direction: column; padding: 20px 0; border-bottom: 1px solid var(--border-color); display: none; }
-            .nav-links.active { display: flex; }
-        }
-
-        /* Header & Slider */
-        .class-header { padding: 50px 0 30px; border-bottom: 1px solid var(--border-color); text-align: center; }
-        .class-title { font-size: 2.2rem; color: var(--accent-color); margin-bottom: 10px; }
-        .class-subtitle { color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 20px; }
-
-        .slider-box { background: var(--card-bg); border: 1px solid var(--accent-color); display: inline-block; padding: 8px 20px; border-radius: 30px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); }
-        .sliding-text { font-size: 1rem; font-weight: bold; color: var(--accent-color); transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; display: inline-block; }
-        .sliding-text.fade-out { opacity: 0; transform: translateY(-10px); }
-        .sliding-text.fade-in { opacity: 1; transform: translateY(0); }
-
-        section { padding: 40px 0; border-bottom: 1px solid var(--border-color); }
-        section h2 { color: var(--accent-color); font-size: 1.6rem; margin-bottom: 20px; }
-        pre { background-color: var(--code-bg); color: #38bdf8; padding: 20px; border-radius: 8px; overflow-x: auto; border: 1px solid var(--border-color); font-family: monospace; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .card { background-color: var(--card-bg); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color); }
-        .card h3 { margin-top: 0; color: var(--text-color); }
-        .card p { color: var(--text-secondary); font-size: 0.95rem; }
-        .btn { display: inline-block; background-color: var(--accent-color); color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: bold; margin-top: 10px; }
-        footer { text-align: center; padding: 20px; color: var(--text-secondary); font-size: 0.85rem; }
-    </style>
+  <!-- Shared CSS Assets -->
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/course.css">
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo-container">
-                <img src="devsecure_logo.png" alt="DevSecure Lab Logo" class="site-logo">
-                <span class="logo-text">DevSecure Lab</span>
-            </a>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="python.html">Python</a></li>
-                <li><a href="linux.html" class="active">Linux</a></li>
-                <li><a href="networking.html">Networking</a></li>
-                <li><a href="web-security.html">Web Security</a></li>
-                <li><a href="ethical-hacking.html">Ethical Hacking</a></li>
-            </ul>
-            <div class="nav-controls">
-                <button class="theme-toggle" id="themeToggle">🌙 Dark</button>
-                <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
-            </div>
-        </div>
-    </nav>
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        <img src="devsecure_logo.png" alt="DevSecure Lab Logo">
+        <span>DevSecure Lab</span>
+      </a>
+      
+      <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false">☰</button>
 
-    <div class="container">
-        <header class="class-header">
-            <h1 class="class-title">🐧 Linux Command Line Basics</h1>
-            <p class="class-subtitle">Master fundamental Linux commands, permissions, and file system navigation.</p>
-            <div class="slider-box">
-                <span class="sliding-text" id="slidingText">🐧 Linux for Hackers & Devs</span>
-            </div>
-        </header>
-
-        <section>
-            <h2>Why Linux for Cybersecurity?</h2>
-            <p>Linux powers the majority of web servers and security operating systems like Kali Linux and Parrot OS. Mastery of the Linux terminal is non-negotiable for security pros.</p>
-        </section>
-
-        <section>
-            <h2>Essential Terminal Commands</h2>
-            <p>Here are the primary commands every security enthusiast should memorize:</p>
-            <pre><code># Check current user & system info
-whoami
-uname -a
-
-# File System Navigation
-pwd
-ls -la /var/log
-
-# File Permissions
-chmod 755 script.sh
-chown root:root script.sh
-
-# Searching & Filtering Logs
-grep -i "failed" /var/log/auth.log</code></pre>
-        </section>
-
-        <section>
-            <h2>Linux Modules</h2>
-            <div class="grid">
-                <div class="card">
-                    <h3>1. File Hierarchy Standard</h3>
-                    <p>Understanding <code>/etc</code>, <code>/var</code>, <code>/bin</code>, and key Linux directory structures.</p>
-                </div>
-                <div class="card">
-                    <h3>2. Users & Permissions</h3>
-                    <p>Managing file ownership, read/write/execute permissions, and sudo privileges.</p>
-                </div>
-                <div class="card">
-                    <h3>3. Bash Scripting Basics</h3>
-                    <p>Automating shell tasks, using loops, conditionals, and environment variables.</p>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h2>Recommended Guides</h2>
-            <div class="grid">
-                <div class="card">
-                    <h3>Linux Command Line Cheat Sheet</h3>
-                    <p>Quick reference guide for essential bash commands and shortcuts.</p>
-                    <a href="https://pinterest.com/devsecurelab" target="_blank" class="btn">View Resource</a>
-                </div>
-                <div class="card">
-                    <h3>File Permissions Explained</h3>
-                    <p>Master Linux file permissions (rwx) and numeric values easily.</p>
-                    <a href="https://pinterest.com/devsecurelab" target="_blank" class="btn">View Resource</a>
-                </div>
-            </div>
-        </section>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Dashboard</a></li>
+          <li><a href="linux.html" class="active">Linux</a></li>
+          <li><a href="networking.html">Networking</a></li>
+          <li><a href="python.html">Python</a></li>
+          <li><a href="web-security.html">Web Security</a></li>
+          <li><a href="ethical-hacking.html">Ethical Hacking</a></li>
+          <li>
+            <button class="theme-toggle-btn">☀️ Light Mode</button>
+          </li>
+        </ul>
+      </nav>
     </div>
+  </header>
 
-    <footer>&copy; 2026 DevSecure Lab. All rights reserved.</footer>
+  <main class="container" style="padding-top: 2rem; padding-bottom: 3rem;">
+    
+    <!-- Course Hero Section -->
+    <section class="card" style="margin-bottom: 2rem;">
+      <span class="badge badge-beginner">Stage 1 • Beginner to Advanced</span>
+      <h1 style="margin-top: 0.5rem;">Linux Basics & Terminal Track</h1>
+      <p>Master the Linux command line interface, directory navigation, file permissions, log analysis, and system automation.</p>
+      
+      <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin-top: 1rem;">
+        <div style="flex-grow: 1; max-width: 350px;">
+          <div class="progress-info">
+            <span id="linux-progress-text">0 of 8 Modules Complete (0%)</span>
+          </div>
+          <div class="progress-bar-bg" style="height: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; overflow: hidden; margin-top: 5px;">
+            <div class="progress-bar-fill" id="linux-progress-fill" style="width: 0%; height: 100%; background: var(--accent-green, #10b981); transition: width 0.3s ease;"></div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <script>
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('navLinks');
-        hamburger.addEventListener('click', () => navLinks.classList.toggle('active'));
+    <!-- Track 1: Beginner Level -->
+    <h2 style="margin-top: 2rem; color: var(--accent-green, #10b981);">🟢 Beginner Track</h2>
+    
+    <!-- Module 1 -->
+    <section class="card" id="mod-1" style="margin-bottom: 1.5rem;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
+        <h3>Module 1: Filesystem Structure & Navigation</h3>
+        <span class="badge">Estimated: 25 mins</span>
+      </div>
+      <p><strong>Objective:</strong> Understand the Linux Root Hierarchy (`/`, `/etc`, `/var`, `/home`) and navigate using absolute vs relative paths.</p>
+      <p><strong>Concept:</strong> Everything in Linux is a file. The root directory `/` is the base of the entire file system hierarchy.</p>
+      <div class="code-block" style="background: #1e1e1e; padding: 1rem; border-radius: 6px; margin: 1rem 0; font-family: monospace;">
+        # Print working directory<br>
+        pwd<br><br>
+        # List all files including hidden ones with detailed attributes<br>
+        ls -la /var/log
+      </div>
+      <p><strong>Practice Task:</strong> Navigate to `/etc` directory and list files sorted by modification time using `ls -lt`.</p>
+      
+      <div class="quiz-container" data-lesson-id="linux-module-01" style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 6px; margin: 1rem 0;">
+        <p><strong>Knowledge Check:</strong> Which command shows your current working directory path?</p>
+        <button class="quiz-option btn btn-outline" style="margin: 0.25rem;" data-correct="false">cd ..</button>
+        <button class="quiz-option btn btn-outline" style="margin: 0.25rem;" data-correct="true">pwd</button>
+        <button class="quiz-option btn btn-outline" style="margin: 0.25rem;" data-correct="false">ls -l</button>
+        <p class="quiz-feedback" style="margin-top: 0.5rem; font-weight: 500;"></p>
+      </div>
 
-        const themeToggleBtn = document.getElementById('themeToggle');
-        themeToggleBtn.addEventListener('click', () => {
-            if (document.documentElement.getAttribute('data-theme') === 'light') {
-                document.documentElement.removeAttribute('data-theme');
-                themeToggleBtn.innerHTML = '🌙 Dark';
-            } else {
-                document.documentElement.setAttribute('data-theme', 'light');
-                themeToggleBtn.innerHTML = '☀️ Light';
-            }
-        });
+      <button class="btn btn-primary mark-complete-btn" onclick="markLessonComplete('linux-module-01')">Mark as Complete ✓</button>
+    </section>
 
-        // Sliding Text Logic
-        const textArray = [
-            "🐧 Linux for Hackers & Devs",
-            "💻 Master the Terminal Command Line",
-            "🔑 Manage Permissions & Users",
-            "🐚 Automate Tasks with Bash Scripting"
-        ];
-        let index = 0;
-        const slidingTextElem = document.getElementById('slidingText');
-        setInterval(() => {
-            slidingTextElem.classList.add('fade-out');
-            setTimeout(() => {
-                index = (index + 1) % textArray.length;
-                slidingTextElem.textContent = textArray[index];
-                slidingTextElem.classList.remove('fade-out');
-                slidingTextElem.classList.add('fade-in');
-            }, 500);
-        }, 3000);
-    </script>
+    <!-- Module 2 -->
+    <section class="card" id="mod-2" style="margin-bottom: 1.5rem;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
+        <h3>Module 2: File Creation & Text Viewing</h3>
+        <span class="badge">Estimated: 30 mins</span>
+      </div>
+      <p><strong>Objective:</strong> Safely create, copy, view, and inspect text files without corrupting system files.</p>
+      <p><strong>Concept:</strong> Use `cat` for small files, `less` for pagination, and `head`/`tail` for inspecting log limits.</p>
+      <div class="code-block" style="background: #1e1e1e; padding: 1rem; border-radius: 6px; margin: 1rem 0; font-family: monospace;">
+        touch incident_notes.txt<br>
+        head -n 20 /var/log/syslog<br>
+        tail -f /var/log/syslog
+      </div>
+      <p><strong>Practice Task:</strong> Create a dummy file named `audit.txt` and append text using `echo "Audit Started" >> audit.txt`.</p>
+      
+      <div class="quiz-container" data-lesson-id="linux-module-02" style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 6px; margin: 1rem 0;">
+        <p><strong>Knowledge Check:</strong> Which command actively follows continuous updates appended to a file?</p>
+        <button class="quiz-option btn btn-outline" style="margin: 0.25rem;" data-correct="true">tail -f</button>
+        <button class="quiz-option btn btn-outline" style="margin: 0.25rem;" data-correct="false">head -n</button>
+        <button class="quiz-option btn btn-outline" style="margin: 0.25rem;" data-correct="false">cat</button>
+        <p class="quiz-feedback" style="margin-top: 0.5rem; font-weight: 500;"></p>
+      </div>
+
+      <button class="btn btn-primary mark-complete-btn" onclick="markLessonComplete('linux-module-02')">Mark as Complete ✓</button>
+    </section>
+
+    <!-- Module 3 -->
+    <section class="card" id="mod-3" style="margin-bottom: 1.5rem;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
+        <h3>Module 3: Permissions & Ownership</h3>
+        <span class="badge">Estimated: 35 mins</span>
+      </div>
+      <p><strong>Objective:</strong> Configure POSIX read (4), write (2), and execute (1) permissions using numeric octal notation.</p>
+      <p><strong>Concept:</strong> Linux enforces access control via User, Group, and Others triplets (`rwx-r--r--`).</p>
+      <div class="code-block" style="background: #1e1e1e; padding: 1rem; border-radius: 6px; margin: 1rem 0; font-family: monospace;">
+        # Secure private SSH key file so only owner can read/write<br>
+        chmod 600 id_rsa<br>
+        # Make script executable<br>
+        chmod +x audit.sh
+      </div>
+      <p><strong>Practice Task:</strong> Set permission on a file so the owner has full rights, group has read-only, and others have no rights (`740`).</p>
+      
+      <div class="quiz-container" data-lesson-id="linux-module-03" style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 6px; margin: 1rem 0;">
+        <p><strong>Knowledge Check:</strong> What octal mode sets Read/Write for Owner and Read-Only for Group and Others?</p>
+        <button class="quiz-option btn btn-outline" style="margin: 0.25rem;" data-correct="false">777</button>
+        <button class="quiz-option btn btn-outline" style="margin: 0.25rem;" data-correct="true">644</button>
+        <button class="quiz-option btn btn-outline" style="margin: 0.25rem;" data-correct="false">755</button>
+        <p class="quiz-feedback" style="margin-top: 0.5rem; font-weight: 500;"></p>
+      </div>
+
+      <button class="btn btn-primary mark-complete-btn" onclick="markLessonComplete('linux-module-03')">Mark as Complete ✓</button>
+    </section>
+
+    <!-- Track 2: Intermediate Level -->
+    <h2 style="margin-top: 2.5rem; color: var(--accent-cyan, #06b6d4);">🔵 Intermediate Track</h2>
+
+    <!-- Module 4 -->
+    <section class="card" id="mod-4" style="margin-bottom: 1.5rem;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
+        <h3>Module 4: User & Process Management</h3>
+        <span class="badge">Estimated: 35 mins</span>
+      </div>
+      <p><strong>Objective:</strong> Monitor active processes, inspect process IDs (PID), and handle background services safely.</p>
+      <p><strong>Concept:</strong> Every program running on Linux is assigned a unique PID managed by the kernel or `systemd`.</p>
+      <div class="code-block" style="background: #1e1e1e; padding: 1rem; border-radius: 6px; margin: 1rem 0; font-family: monospace;">
+        ps aux | grep nginx<br>
+        top<br>
+        systemctl status sshd
+      </div>
+      <p><strong>Practice Task:</strong> Use `ps aux` piped into `grep` to find the process ID of your current running shell.</p>
+      
+      <div class="quiz-container" data-lesson-id="linux-module-04" style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 6px; margin: 1rem 0;">
+        <p><strong>Knowledge Check:</strong> Which command is used to check the operational status of system services?</p>
+        <button class="quiz-option btn btn-outline" style="margin: 0.25rem;" data-correct="true">systemctl status</button>
+        <button class="quiz-option btn btn-outline" style="margin: 0.25rem;" data-correct="false">chmod status</button>
+        <button class="quiz-option btn btn-outline" style="margin: 0.25rem;" data-correct="false">cat /proc</button>
+        <p class="quiz-feedback" style="margin-top: 0.5rem; font-weight: 500;"></p>
+      </div>
+
+      <button class="btn btn-primary mark-complete-btn" onclick="markLessonComplete('linux-module-04')">Mark as Complete ✓</button>
+    </section>
+
+    <!-- Module 5 -->
+    <section class="card" id="mod-5" style="margin-bottom: 1.5rem;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
+        <h3>Module 5: Log Analysis with Grep & Pipes</h3>
+        <span class="badge">Estimated: 40 mins</span>
+      </div>
+      <p><strong>Objective:</strong> Extract operational insights and security incidents from system logs using text filter chains.</p>
+      <p><strong>Concept:</strong> Combining `grep`, `awk`, `sort`, and `uniq` allows searching millions of log lines instantly.</p>
+      <div class="code-block" style="background: #1e1e1e; padding: 1rem; border-radius: 6px; margin: 1rem 0; font-family: monospace;">
+        grep "Failed password" /var/log/auth.log | awk '{print $11}' | sort | uniq -c
+      </div>
+      <p><strong>Practice Task:</strong> Extract lines containing "ERROR" from a sample log file and count their unique occurrences.</p>
+      
+      <div class="quiz-container" data-lesson-id="linux-module-05" style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 6px; margin: 1rem 0;">
+        <p><strong>Knowledge Check:</strong> What operator connects the stdout of one command directly into the stdin of another?</p>
+        <button class="quiz-option btn btn-outline" style="margin: 0.25rem;" data-correct="false">></button>
+        <button class="quiz-option btn btn-outline" style="margin: 0.25rem;" data-correct="true">|</button>
+        <button class="quiz-option btn btn-outline" style="margin: 0.25rem;" data-correct="false">&lt;</button>
+        <p class="quiz-feedback" style="margin-top: 0.5rem; font-weight: 500;"></p>
+      </div>
+
+      <button class="btn btn-primary mark-complete-btn" onclick="markLessonComplete('linux-module-05')">Mark as Complete ✓</button>
+    </section>
+
+    <!-- Module 6 -->
+    <section class="card" id="mod-6" style="margin-bottom: 1.5rem;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
+        <h3>Module 6: Linux Networking Commands</h3>
+        <span class="badge">Estimated: 35 mins</span>
+      </div>
+      <p><strong>Objective:</strong> Inspect network interfaces, listening ports, local sockets, and remote host connectivity.</p>
+      <p><strong>Concept:</strong> Use native tools to diagnose networking layers locally before troubleshooting remote apps.</p>
+      <div class="code-block" style="background: #1e1e1e; padding: 1rem; border-radius: 6px; margin: 1rem 0; font-family: monospace;">
+        ip a<br>
+        ss -tuln<br>
+        ping -c 4 127.0.0.1
+      </div>
+      <p><strong>Practice Task:</strong> Run `ss -tuln` to view all active TCP and UDP listening sockets on your system.</p>
+      
+      <div class="quiz-container" data-lesson-id="linux-module-06" style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 6px; margin: 1rem 0;">
+        <p><strong>Knowledge Check:</strong> Which command replaces legacy `netstat` to view listening sockets and ports?</p>
+        <button class="quiz-option btn btn-outline" style="margin: 0.25rem;" data-correct="true">ss</button>
+        <button class="quiz-option btn btn-outline" style="margin: 0.25rem;" data-correct="false">ifconfig</button>
+        <button class="quiz-option btn btn-outline" style="margin: 0.25rem;" data-correct="false">route</button>
+        <p class="quiz-feedback" style="margin-top: 0.5rem; font-weight: 500;"></p>
+      </div>
+
+      <button class="btn btn-primary mark-complete-btn" onclick="markLessonComplete('linux-module-06')">Mark as Complete ✓</button>
+    </section>
+
+    <!-- Track 3: Advanced Level -->
+    <h2 style="margin-top: 2.5rem; color: var(--accent-blue, #3b82f6);">🟣 Advanced Track</h2>
+
+    <!-- Module 7 -->
+    <section class="card" id="mod-7" style="margin-bottom: 1.5rem;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
+        <h3>Module 7: Bash Shell Automation</h3>
+        <span class="badge">Estimated: 45 mins</span>
+      </div>
+      <p><strong>Objective:</strong> Write executable Bash scripts utilizing variables, conditional checks, and exit codes.</p>
+      <p><strong>Concept:</strong> Automation scripts reduce administrative errors and automate security log checks.</p>
+      <div class="code-block" style="background: #1e1e1e; padding: 1rem; border-radius: 6px; margin: 1rem 0; font-family: monospace;">
+        #!/bin/bash<br>
+        LOG_FILE="/var/log/auth.log"<br>
+        if [ -f "$LOG_FILE" ]; then<br>
+        &nbsp;&nbsp;echo "Log exists. Checking failed logins..."<br>
+        &nbsp;&nbsp;grep "Failed password" "$LOG_FILE" | wc -l<br>
+        fi
+      </div>
+      <p><strong>Practice Task:</strong> Create a script `check_disk.sh` that alerts if root disk usage exceeds threshold limits.</p>
+      
+      <div class="quiz-container" data-lesson-id="linux-module-07" style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 6px; margin: 1rem 0;">
+        <p><strong>Knowledge Check:</strong> What line must be included at the very top of a Bash script to define the interpreter?</p>
+        <button class="quiz-option btn btn-outline" style="margin: 0.25rem;" data-correct="false">#include &lt;bash.h&gt;</button>
+        <button class="quiz-option btn btn-outline" style="margin: 0.25rem;" data-correct="true">#!/bin/bash</button>
+        <button class="quiz-option btn btn-outline" style="margin: 0.25rem;" data-correct="false">&lt;script lang="bash"&gt;</button>
+        <p class="quiz-feedback" style="margin-top: 0.5rem; font-weight: 500;"></p>
+      </div>
+
+      <button class="btn btn-primary mark-complete-btn" onclick="markLessonComplete('linux-module-07')">Mark as Complete ✓</button>
+    </section>
+
+    <!-- Module 8 -->
+    <section class="card" id="mod-8" style="margin-bottom: 1.5rem;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
+        <h3>Module 8: System Audit & Hardening Project</h3>
+        <span class="badge">Estimated: 50 mins</span>
+      </div>
+      <p><strong>Objective:</strong> Apply system hardening controls, disable unnecessary services, and audit SUID binaries.</p>
+      <p><strong>Concept:</strong> Reducing attack surface by removing unneeded permissions and restricting root access.</p>
+      <div class="code-block" style="background: #1e1e1e; padding: 1rem; border-radius: 6px; margin: 1rem 0; font-family: monospace;">
+        # Search for world-writable files<br>
+        find / -perm -2 -type f 2>/dev/null<br>
+        # Audit SUID root files<br>
+        find / -perm -4000 -type f 2>/dev/null
+      </div>
+      <p><strong>Practice Task:</strong> Execute SUID binary discovery in a disposable environment and document findings.</p>
+      
+      <div class="quiz-container" data-lesson-id="linux-module-08" style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 6px; margin: 1rem 0;">
+        <p><strong>Knowledge Check:</strong> What risk is associated with misconfigured SUID binaries on Linux systems?</p>
+        <button class="quiz-option btn btn-outline" style="margin: 0.25rem;" data-correct="true">Potential Local Privilege Escalation</button>
+        <button class="quiz-option btn btn-outline" style="margin: 0.25rem;" data-correct="false">Slower network latency</button>
+        <button class="quiz-option btn btn-outline" style="margin: 0.25rem;" data-correct="false">Corrupted DNS resolution</button>
+        <p class="quiz-feedback" style="margin-top: 0.5rem; font-weight: 500;"></p>
+      </div>
+
+      <button class="btn btn-primary mark-complete-btn" onclick="markLessonComplete('linux-module-08')">Mark as Complete ✓</button>
+    </section>
+
+    <!-- Official Authoritative Resources Section -->
+    <section class="card" style="margin-top: 3rem;">
+      <h3>📚 Authoritative External Documentation</h3>
+      <p style="margin-bottom: 1rem; color: var(--text-secondary);">Direct references for deep technical reading:</p>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
+        <div style="border: 1px solid rgba(255,255,255,0.1); padding: 1rem; border-radius: 6px;">
+          <h4 style="margin: 0 0 0.5rem 0;">Linux Man Pages</h4>
+          <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Source: man7.org • Level: Reference</p>
+          <a href="https://man7.org/linux/man-pages/" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 0.85rem;">Read Documentation ↗</a>
+        </div>
+        <div style="border: 1px solid rgba(255,255,255,0.1); padding: 1rem; border-radius: 6px;">
+          <h4 style="margin: 0 0 0.5rem 0;">Ubuntu CLI Tutorials</h4>
+          <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Source: Canonical • Level: Beginner</p>
+          <a href="https://ubuntu.com/tutorials/command-line-for-beginners" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 0.85rem;">Read Guide ↗</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Shared JS Scripts -->
+  <script src="assets/js/navigation.js"></script>
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/progress.js"></script>
+  <script src="assets/js/quiz.js"></script>
 </body>
 </html>
