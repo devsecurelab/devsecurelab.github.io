@@ -1,0 +1,30 @@
+.course-hero { margin-bottom: 2rem; padding: clamp(1.25rem, 4vw, 2.5rem); border: 1px solid var(--border); border-radius: 1rem; background: linear-gradient(135deg, var(--surface), var(--surface-2)); }
+.course-hero h1 { margin-bottom: .8rem; }
+.course-hero > p:not(.eyebrow) { color: var(--muted); }
+.course-progress { margin-top: 1.5rem; max-width: 580px; }
+.progress-text { margin: 0 0 .45rem; color: var(--cyan); font-size: .9rem; font-weight: 750; }
+.track-heading { margin: 2.5rem 0 1rem; }
+.track-heading h2 { margin-bottom: .25rem; }
+.track-heading p { color: var(--muted); }
+.module-card { scroll-margin-top: 6rem; margin: 1rem 0; padding: clamp(1.1rem, 3vw, 1.75rem); }
+.module-card:target { border-color: var(--cyan); }
+.module-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+.module-heading h2 { margin-bottom: 0; }
+.module-track { margin: 0 0 .35rem; color: var(--green); font-size: .78rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+.module-card strong { color: var(--text); }
+.module-card p { color: var(--muted); }
+.quiz-container { margin: 1.3rem 0; padding: 1rem; border: 1px solid var(--border); border-radius: .75rem; background: var(--surface-2); }
+.quiz-container legend { max-width: 100%; padding: 0 .35rem; color: var(--text); font-weight: 750; }
+.quiz-options { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: .7rem; }
+.quiz-option { min-height: 2.75rem; padding: .6rem .85rem; border: 1px solid var(--border); border-radius: .55rem; background: var(--surface); color: var(--text); cursor: pointer; }
+.quiz-option:hover { border-color: var(--cyan); }
+.quiz-option.correct { border-color: var(--green); background: var(--green); color: #06150f; }
+.quiz-option.incorrect { border-color: #ff9292; background: #ff9292; color: #2b0808; }
+.quiz-feedback { min-height: 1.5rem; margin: .8rem 0 0; font-weight: 700; }
+.quiz-feedback.is-correct { color: var(--green); }
+.quiz-feedback.is-incorrect { color: #ff9292; }
+.mark-complete-btn { margin-top: .2rem; }
+.mark-complete-btn.is-complete { border-color: var(--green); background: var(--green); color: #06150f; }
+.resources { margin-top: 2.5rem; }
+.resources h2 { margin-bottom: .4rem; }
+@media (max-width: 560px) { .module-heading { flex-direction: column; } .quiz-options { flex-direction: column; align-items: stretch; } .quiz-option { text-align: left; } }

@@ -1,1 +1,9 @@
-
+.skip-link { position: absolute; left: 1rem; top: -4rem; z-index: 9999; padding: .75rem 1rem; color: #06111b; background: var(--green); border-radius: .5rem; font-weight: 800; }
+.skip-link:focus { top: 1rem; }
+:focus-visible { outline: 3px solid var(--cyan); outline-offset: 4px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+button:disabled, [aria-disabled="true"] { cursor: not-allowed; opacity: .72; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  .btn:hover, .mark-complete-btn:hover { transform: none; }
+}
