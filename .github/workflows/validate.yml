@@ -1,1 +1,24 @@
-
+name: Validate static site
+on:
+  push:
+  pull_request:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check required files
+        shell: bash
+        run: |
+          set -euo pipefail
+          for file in index.html linux.html networking.html python.html web-security.html ethical-hacking.html privacy.html responsible-use.html 404.html robots.txt sitemap.xml; do test -f "$file"; done
+          for file in assets/css/base.css assets/css/components.css assets/css/course.css assets/css/accessibility.css assets/js/navigation.js assets/js/theme.js assets/js/progress.js assets/js/quiz.js assets/js/accessibility.js; do test -f "$file"; done
+      - name: Check course structure
+        shell: bash
+        run: |
+          set -euo pipefail
+          for file in linux.html networking.html python.html web-security.html ethical-hacking.html; do
+            test "$(grep -o 'Module [0-9][0-9]:' "$file" | wc -l)" -eq 8
+            test "$(grep -o 'quiz-container' "$file" | wc -l)" -eq 8
+            test "$(grep -o 'mark-complete-btn' "$file" | wc -l)" -eq 8
+          done
