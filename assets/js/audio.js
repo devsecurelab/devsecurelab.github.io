@@ -17,6 +17,23 @@ function updateAudioPreferenceUI() {
     button.setAttribute('aria-label', enabled ? 'Turn lesson audio off' : 'Turn lesson audio on');
   });
 }
+function getLessonNarration(box) {
+  const card = box.closest('.module-card') || box.parentElement;
+  const clone = card.cloneNode(true);
+  clone.querySelectorAll('.lesson-audio, .quiz-options, .mark-complete-btn, .audio-status').forEach((node) => node.remove());
+  return clone.textContent.replace(/\s+/g, ' ').trim();
+}
+function splitIntoChunks(text) {
+  const sentences = text.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [text];
+  const chunks = []; let current = '';
+  sentences.forEach((sentence) => {
+    const next = `${current} ${sentence}`.trim();
+    if (current && next.length > 220) { chunks.push(current); current = sentence.trim(); }
+    else current = next;
+  });
+  if (current) chunks.push(current);
+  return chunks;
+}
 function resetAudioUI(message = 'Audio ready') {
   if (activeButton) { activeButton.textContent = 'Listen to this lesson'; activeButton.setAttribute('aria-pressed', 'false'); }
   if (activeStatus) activeStatus.textContent = message;
@@ -27,39 +44,38 @@ function stopLessonAudio(message = 'Audio ready') {
   if ('speechSynthesis' in window) window.speechSynthesis.cancel();
   resetAudioUI(message);
 }
-function splitIntoChunks(text) {
-  const sentences = text.replace(/\s+/g, ' ').trim().match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [text];
-  const chunks = []; let current = '';
-  sentences.forEach((sentence) => {
-    const next = `${current} ${sentence}`.trim();
-    if (current && next.length > 220) { chunks.push(current); current = sentence.trim(); }
-    else current = next;
-  });
-  if (current) chunks.push(current);
-  return chunks;
-}
 function speakNextChunk(token) {
   if (token !== runToken || isPausedByUser || !activeButton) return;
   if (activeChunkIndex >= activeChunks.length) { resetAudioUI('Audio ready'); return; }
   const utterance = new SpeechSynthesisUtterance(activeChunks[activeChunkIndex]);
   utterance.lang = 'en-US'; utterance.rate = .94; utterance.pitch = 1;
-  utterance.onstart = () => { if (token === runToken && !isPausedByUser) { activeButton.textContent = 'Pause lesson audio'; activeButton.setAttribute('aria-pressed','true'); activeStatus.textContent = `Playing lesson audio · Part ${activeChunkIndex + 1} of ${activeChunks.length}`; } };
-  utterance.onend = () => { if (token !== runToken || isPausedByUser) return; activeChunkIndex += 1; window.setTimeout(() => speakNextChunk(token), 30); };
-  utterance.onerror = () => { if (token !== runToken || isPausedByUser) return; resetAudioUI('Audio could not be played. Try again after interacting with the page.'); };
+  utterance.onstart = () => {
+    if (token === runToken && !isPausedByUser) {
+      activeButton.textContent = 'Pause lesson audio'; activeButton.setAttribute('aria-pressed', 'true'); activeStatus.textContent = `Playing complete lesson audio · Part ${activeChunkIndex + 1} of ${activeChunks.length}`;
+    }
+  };
+  utterance.onend = () => {
+    if (token !== runToken || isPausedByUser) return;
+    activeChunkIndex += 1;
+    window.setTimeout(() => speakNextChunk(token), 40);
+  };
+  utterance.onerror = () => {
+    if (token !== runToken || isPausedByUser) return;
+    resetAudioUI('Audio could not be played. Try again after interacting with the page.');
+  };
   window.speechSynthesis.speak(utterance);
 }
 function startLessonAudio(text, status, button) {
   if (!('speechSynthesis' in window)) { status.textContent = 'Audio is not supported in this browser.'; return; }
-  stopLessonAudio(); activeButton = button; activeStatus = status; activeChunks = splitIntoChunks(text); activeChunkIndex = 0; isPausedByUser = false; runToken += 1;
-  speakNextChunk(runToken);
+  stopLessonAudio(); activeButton = button; activeStatus = status; activeChunks = splitIntoChunks(text); activeChunkIndex = 0; isPausedByUser = false; runToken += 1; speakNextChunk(runToken);
 }
 function toggleLessonAudio(text, status, button) {
   if (!audioEnabled()) { status.textContent = 'Turn Audio On in the navigation first.'; return; }
   if (activeButton !== button) { startLessonAudio(text, status, button); return; }
   if (isPausedByUser) {
-    isPausedByUser = false; button.textContent = 'Pause lesson audio'; button.setAttribute('aria-pressed','true'); status.textContent = `Resuming lesson audio · Part ${activeChunkIndex + 1} of ${activeChunks.length}`; runToken += 1; speakNextChunk(runToken); return;
+    isPausedByUser = false; button.textContent = 'Pause lesson audio'; button.setAttribute('aria-pressed', 'true'); status.textContent = `Resuming lesson audio from Part ${activeChunkIndex + 1} of ${activeChunks.length}`; runToken += 1; speakNextChunk(runToken); return;
   }
-  isPausedByUser = true; runToken += 1; window.speechSynthesis.cancel(); button.textContent = 'Resume lesson audio'; button.setAttribute('aria-pressed','false'); status.textContent = `Audio paused · Part ${activeChunkIndex + 1} of ${activeChunks.length}`;
+  isPausedByUser = true; runToken += 1; window.speechSynthesis.cancel(); button.textContent = 'Resume lesson audio'; button.setAttribute('aria-pressed', 'false'); status.textContent = `Audio paused at Part ${activeChunkIndex + 1} of ${activeChunks.length}. Resume continues here.`;
 }
 function playFeedbackSound(success) {
   if (!audioEnabled() || (!window.AudioContext && !window.webkitAudioContext)) return;
@@ -72,8 +88,9 @@ document.addEventListener('DOMContentLoaded', () => {
   updateAudioPreferenceUI();
   document.querySelectorAll('.audio-settings-btn').forEach((button) => button.addEventListener('click', () => { const enabled = !audioEnabled(); localStorage.setItem(AUDIO_PREF_KEY, String(enabled)); if (!enabled) stopLessonAudio('Audio is off'); updateAudioPreferenceUI(); }));
   document.querySelectorAll('.lesson-audio').forEach((box) => {
-    const button = box.querySelector('.audio-toggle'); const status = box.querySelector('.audio-status'); const text = box.dataset.audioText;
-    if (!button || !status || !text) return;
+    const button = box.querySelector('.audio-toggle'); const status = box.querySelector('.audio-status');
+    if (!button || !status) return;
+    const text = getLessonNarration(box);
     button.addEventListener('click', () => toggleLessonAudio(text, status, button));
   });
 });
