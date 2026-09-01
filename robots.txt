@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://devsecurelab.github.io/sitemap.xml
