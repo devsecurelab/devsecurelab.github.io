@@ -1,5 +1,6 @@
 const PROGRESS_KEY = 'devsecurelab_progress';
 const COURSE_TOTAL = 8;
+const PLATFORM_TOTAL = 48;
 
 function getProgress() {
   try { return JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}'); }
@@ -48,10 +49,10 @@ function updateProgressUI() {
 
   const overall = document.querySelector('[data-overall-progress] [role="progressbar"]');
   const overallFill = document.querySelector('[data-overall-progress] .progress-bar-fill');
-  const overallPercent = Math.min(Math.round((completedTotal / 40) * 100), 100);
+  const overallPercent = Math.min(Math.round((completedTotal / PLATFORM_TOTAL) * 100), 100);
   if (overall) {
     overall.setAttribute('aria-valuenow', String(completedTotal));
-    overall.setAttribute('aria-valuetext', `${completedTotal} of 40 modules complete`);
+    overall.setAttribute('aria-valuetext', `${completedTotal} of ${PLATFORM_TOTAL} modules complete`);
   }
   if (overallFill) overallFill.style.width = `${overallPercent}%`;
 
