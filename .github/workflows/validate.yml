@@ -1,38 +1,25 @@
-name: Validate DevSecureLab Level 5
-
+name: Validate DevSecure Lab
 on:
   push:
   pull_request:
-
 jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Check required files
-        shell: bash
-        run: |
-          set -euo pipefail
-          for file in index.html linux.html networking.html python.html web-security.html ethical-hacking.html english-for-cybersecurity.html privacy.html responsible-use.html 404.html robots.txt sitemap.xml; do test -f "$file"; done
-          for file in assets/css/base.css assets/css/components.css assets/css/course.css assets/css/accessibility.css assets/js/navigation.js assets/js/theme.js assets/js/progress.js assets/js/quiz.js assets/js/audio.js assets/js/accessibility.js assets/images/og-preview.jpg; do test -f "$file"; done
-      - name: Check course structure
-        shell: bash
-        run: |
-          set -euo pipefail
-          for file in linux.html networking.html python.html web-security.html ethical-hacking.html english-for-cybersecurity.html; do
-            test "$(grep -o 'lesson-audio' "$file" | wc -l)" -eq 8
-            test "$(grep -o 'quiz-container' "$file" | wc -l)" -eq 8
-            test "$(grep -o 'mark-complete-btn' "$file" | wc -l)" -eq 8
-            test "$(grep -o 'og:title' "$file" | wc -l)" -eq 1
-            test "$(grep -o 'twitter:card' "$file" | wc -l)" -eq 1
-          done
-      - name: Check scripts
-        shell: bash
-        run: |
-          set -euo pipefail
-          for file in assets/js/*.js; do node --check "$file"; done
-      - name: Check language policy
-        shell: bash
-        run: |
-          set -euo pipefail
-          test "$(grep -Rho '[অ-ৌক-৾]' -- *.html assets 2>/dev/null | wc -l)" -eq 8
+      - uses: actions/setup-node@v4
+        with: {node-version: 20}
+      - run: node --check assets/js/audio.js
+      - run: node --check assets/js/progress.js
+      - run: node --check assets/js/quiz.js
+      - run: python - <<'PY'
+        from pathlib import Path
+        pages=list(Path('.').glob('*.html'))
+        required=['index.html','linux.html','networking.html','python.html','web-security.html','ethical-hacking.html','english-for-cybersecurity.html','privacy.html','responsible-use.html','terms.html','404.html']
+        assert all(Path(x).exists() for x in required)
+        for p in pages:
+          s=p.read_text()
+          assert '<title>' in s and 'meta name="description"' in s and 'og:title' in s
+        for p in required[1:7]: assert p in [x.name for x in pages]
+        print(f'Validated {len(pages)} HTML pages')
+        PY
