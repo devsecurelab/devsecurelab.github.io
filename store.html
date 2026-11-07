@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevSecure Lab — Hand-Picked Gear for Developers & Security Enthusiasts</title>
+  <meta name="description" content="Personally tested hardware security keys, mechanical keyboards, monitors, and developer gear curated by DevSecure Lab.">
+
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="DevSecure Lab — Hand-Picked Developer & Security Gear">
+  <meta property="og:description" content="Build Secure. Code Better. Gear Up. Curated hardware and tools tested for privacy, security, and daily coding.">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts: Space Grotesk, Inter, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="theme.css">
+</head>
+<body>
+
+  <!-- Sticky Navigation -->
+  <header class="site-header" id="siteHeader">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="logo" aria-label="DevSecure Lab Home">
+        
+        <span class="logo-dev">DevSecure</span><span class="logo-lab">Lab</span>
+      </a>
+
+      <nav aria-label="Primary Navigation">
+        <ul class="nav-links">
+          <li><a href="#hero" class="nav-link active">Gear</a></li>
+          <li><a href="#top-pick" class="nav-link">Top Pick</a></li>
+          <li><a href="#guides" class="nav-link">Guides</a></li>
+          <li><a href="#disclosure" class="nav-link">Disclosure</a></li>
+          <li><a href="index.html" class="nav-link">Back to Classes</a></li>
+        </ul>
+      </nav>
+
+      <button class="hamburger" id="hamburgerBtn" aria-label="Toggle Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="#hero" class="nav-link active">Gear</a></li>
+      <li><a href="#top-pick" class="nav-link">Top Pick</a></li>
+      <li><a href="#guides" class="nav-link">Guides</a></li>
+      <li><a href="#disclosure" class="nav-link">Disclosure</a></li>
+    </ul>
+  </div>
+
+  <main>
+    <!-- Hero Section with Sliding Image Showcase -->
+    <section class="hero" id="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <span class="mono-badge">// HAND-PICKED GEAR</span>
+          <h1 class="hero-title">
+            Build Secure. Code Better. <span class="text-gradient">Gear Up.</span>
+          </h1>
+          <p class="hero-subtitle">
+            Hardware security keys, tactile keyboards, and distraction-free setups tested in real-world engineering workflows.
+          </p>
+          <div class="hero-actions">
+            <a href="#gear-grid" class="btn btn-primary">Explore Gear</a>
+            <a href="#guides" class="btn btn-outline">Read Guides</a>
+          </div>
+        </div>
+
+        <!-- Hero Slider -->
+        <div class="hero-slider-wrapper" id="heroSlider" aria-roledescription="carousel" aria-label="Featured Gear Showcase">
+          <div class="slider-glow" aria-hidden="true"></div>
+          <div class="slider-viewport" id="sliderViewport">
+            <div class="slide active">
+              <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=800&q=80" width="800" height="600" alt="Custom mechanical keyboard on a dark developer desk" loading="eager">
+              <span class="slide-caption">Mechanical Keyboards</span>
+            </div>
+            <div class="slide">
+              <img src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&w=800&q=80" width="800" height="600" alt="Hardware security key and encrypted laptop setup" loading="lazy">
+              <span class="slide-caption">Security Keys</span>
+            </div>
+            <div class="slide">
+              <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80" width="800" height="600" alt="Developer laptop in a minimal dark workspace" loading="lazy">
+              <span class="slide-caption">Developer Laptops</span>
+            </div>
+            <div class="slide">
+              <img src="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?auto=format&fit=crop&w=800&q=80" width="800" height="600" alt="Ergonomic wireless mouse for long coding sessions" loading="lazy">
+              <span class="slide-caption">Ergonomic Mice</span>
+            </div>
+            <div class="slide">
+              <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80" width="800" height="600" alt="Noise-canceling studio headphones" loading="lazy">
+              <span class="slide-caption">Focus Headphones</span>
+            </div>
+            <div class="slide">
+              <img src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=800&q=80" width="800" height="600" alt="Ultrawide 4K developer monitor" loading="lazy">
+              <span class="slide-caption">4K Monitors</span>
+            </div>
+            <div class="slide">
+              <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=800&q=80" width="800" height="600" alt="Security and systems architecture books" loading="lazy">
+              <span class="slide-caption">Essential Books</span>
+            </div>
+          </div>
+
+          <div class="slider-controls">
+            <button class="slider-arrow" id="prevSlide" aria-label="Previous slide">&#8592;</button>
+            <div class="slider-dots" id="sliderDots" role="tablist" aria-label="Slide indicators"></div>
+            <button class="slider-arrow" id="nextSlide" aria-label="Next slide">&#8594;</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Top Affiliate Disclosure -->
+    <div class="disclosure-banner" id="disclosure">
+      <div class="container">
+        <strong>Affiliate Disclosure:</strong> As an Amazon Associate, I earn from qualifying purchases. This comes at no extra cost to you.
+      </div>
+    </div>
+
+    <!-- Category Filter Strip & Product Grid -->
+    <section class="section" id="gear-grid">
+      <div class="container">
+        <div class="category-strip">
+          <div class="category-list" role="tablist" aria-label="Filter gear by category">
+            <button class="category-chip active" data-category="all" role="tab" aria-selected="true">All Gear</button>
+            <button class="category-chip" data-category="security-keys" role="tab" aria-selected="false">Security Keys</button>
+            <button class="category-chip" data-category="keyboards" role="tab" aria-selected="false">Keyboards</button>
+            <button class="category-chip" data-category="mice" role="tab" aria-selected="false">Mice</button>
+            <button class="category-chip" data-category="laptops" role="tab" aria-selected="false">Laptops</button>
+            <button class="category-chip" data-category="monitors" role="tab" aria-selected="false">Monitors</button>
+            <button class="category-chip" data-category="books" role="tab" aria-selected="false">Books</button>
+            <button class="category-chip" data-category="accessories" role="tab" aria-selected="false">Accessories</button>
+          </div>
+        </div>
+
+        <div class="product-grid" id="productGrid">
+          <!-- Card 1 -->
+          <article class="product-card" data-category="security-keys">
+            <div class="card-media">
+              <img src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&w=600&q=80" width="600" height="450" alt="YubiKey 5C NFC hardware security key" loading="lazy">
+              <span class="card-category-badge">Security Keys</span>
+              <span class="card-editorial-tag">Editor’s Pick</span>
+            </div>
+            <div class="card-body">
+              <h2 class="card-title">YubiKey 5C NFC</h2>
+              <p class="card-desc">Hardware-backed FIDO2 &amp; WebAuthn authentication for GitHub, SSH, and cloud consoles.</p>
+              <ul class="card-features">
+                <li>USB-C + NFC tap-to-authenticate</li>
+                <li>Supports PGP, PIV, and OATH-TOTP</li>
+                <li>Crushproof &amp; IP68 water-resistant</li>
+              </ul>
+              <div class="card-footer">
+                <a href="https://www.amazon.com/dp/B08DHL1YDL" target="_blank" rel="sponsored nofollow noopener" class="btn btn-cta">Check Price on Amazon</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="product-card" data-category="keyboards">
+            <div class="card-media">
+              <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=600&q=80" width="600" height="450" alt="Keychron Q1 Pro wireless mechanical keyboard" loading="lazy">
+              <span class="card-category-badge">Keyboards</span>
+              <span class="card-editorial-tag">Daily Driver</span>
+            </div>
+            <div class="card-body">
+              <h2 class="card-title">Keychron Q1 Pro QMK/VIA</h2>
+              <p class="card-desc">Full-metal CNC aluminum mechanical keyboard with open-source QMK firmware support.</p>
+              <ul class="card-features">
+                <li>Hot-swappable tactile switches</li>
+                <li>Bluetooth 5.1 &amp; wired USB-C</li>
+                <li>Mac/Linux/Windows keycap layout</li>
+              </ul>
+              <div class="card-footer">
+                <a href="https://www.amazon.com/" target="_blank" rel="sponsored nofollow noopener" class="btn btn-cta">Check Price on Amazon</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="product-card" data-category="mice">
+            <div class="card-media">
+              <img src="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?auto=format&fit=crop&w=600&q=80" width="600" height="450" alt="Logitech MX Master 3S ergonomic mouse" loading="lazy">
+              <span class="card-category-badge">Mice</span>
+            </div>
+            <div class="card-body">
+              <h2 class="card-title">Logitech MX Master 3S</h2>
+              <p class="card-desc">Precision ergonomic mouse built for multi-monitor coding and fast horizontal scrolling.</p>
+              <ul class="card-features">
+                <li>MagSpeed electromagnetic scroll wheel</li>
+                <li>8000 DPI sensor works on glass</li>
+                <li>Quiet tactile clicks &amp; 3-device pairing</li>
+              </ul>
+              <div class="card-footer">
+                <a href="https://www.amazon.com/" target="_blank" rel="sponsored nofollow noopener" class="btn btn-cta">Check Price on Amazon</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 4 -->
+          <article class="product-card" data-category="monitors">
+            <div class="card-media">
+              <img src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=600&q=80" width="600" height="450" alt="Dell UltraSharp 27-inch 4K USB-C Hub Monitor" loading="lazy">
+              <span class="card-category-badge">Monitors</span>
+              <span class="card-editorial-tag">Best Clarity</span>
+            </div>
+            <div class="card-body">
+              <h2 class="card-title">Dell UltraSharp 27" 4K USB-C</h2>
+              <p class="card-desc">Crisp 4K IPS Black panel for razor-sharp terminal text and single-cable laptop charging.</p>
+              <ul class="card-features">
+                <li>90W USB-C power delivery + RJ45</li>
+                <li>Built-in KVM switch for 2 machines</li>
+                <li>Low blue light comfort view</li>
+              </ul>
+              <div class="card-footer">
+                <a href="https://www.amazon.com/" target="_blank" rel="sponsored nofollow noopener" class="btn btn-cta">Check Price on Amazon</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 5 -->
+          <article class="product-card" data-category="books">
+            <div class="card-media">
+              <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=600&q=80" width="600" height="450" alt="Designing Data-Intensive Applications book" loading="lazy">
+              <span class="card-category-badge">Books</span>
+              <span class="card-editorial-tag">Best for Beginners</span>
+            </div>
+            <div class="card-body">
+              <h2 class="card-title">Designing Data-Intensive Apps</h2>
+              <p class="card-desc">The foundational guide to building reliable, scalable, and maintainable distributed systems.</p>
+              <ul class="card-features">
+                <li>Deep dive into consensus &amp; replication</li>
+                <li>Clear trade-offs on storage engines</li>
+                <li>Essential for backend &amp; security roles</li>
+              </ul>
+              <div class="card-footer">
+                <a href="https://www.amazon.com/" target="_blank" rel="sponsored nofollow noopener" class="btn btn-cta">Check Price on Amazon</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 6 -->
+          <article class="product-card" data-category="accessories">
+            <div class="card-media">
+              <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80" width="600" height="450" alt="Sony WH-1000XM5 noise canceling headphones" loading="lazy">
+              <span class="card-category-badge">Accessories</span>
+            </div>
+            <div class="card-body">
+              <h2 class="card-title">Sony WH-1000XM5 ANC</h2>
+              <p class="card-desc">Industry-leading active noise cancellation for deep focus in noisy offices or cafes.</p>
+              <ul class="card-features">
+                <li>30-hour battery with quick USB-C charge</li>
+                <li>Multipoint Bluetooth connection</li>
+                <li>Lightweight memory-foam earcups</li>
+              </ul>
+              <div class="card-footer">
+                <a href="https://www.amazon.com/" target="_blank" rel="sponsored nofollow noopener" class="btn btn-cta">Check Price on Amazon</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trust / Credibility Section -->
+    <section class="section trust-section">
+      <div class="container trust-grid">
+        <div class="trust-item">
+          <h3 class="trust-title">Personally Tested</h3>
+          <p class="trust-desc">Every item listed here is gear I use or have benchmarked in my own daily coding and security workflows.</p>
+        </div>
+        <div class="trust-item">
+          <h3 class="trust-title">Security-First Picks</h3>
+          <p class="trust-desc">I prioritize open-source firmware, hardware-backed encryption, and privacy-respecting peripherals.</p>
+        </div>
+        <div class="trust-item">
+          <h3 class="trust-title">No Extra Cost</h3>
+          <p class="trust-desc">Using these links supports DevSecure Lab's independent guides while keeping your Amazon price identical.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Top Pick Featured Block -->
+    <section class="section" id="top-pick">
+      <div class="container">
+        <article class="top-pick-card">
+          <div class="top-pick-media">
+            <img src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&w=800&q=80" width="800" height="600" alt="YubiKey 5C NFC Top Pick" loading="lazy">
+          </div>
+          <div class="top-pick-content">
+            <span class="mono-badge">// #1 TOP PICK</span>
+            <h2>Why the YubiKey 5C NFC is My Non-Negotiable</h2>
+            <p style="color: var(--text-secondary);">
+              If you only upgrade one thing in your developer setup this year, make it your authentication. SMS 2FA can be SIM-swapped, and authenticator apps are tied to your phone. A hardware key locks your GitHub, AWS, and password manager behind physical touch—making remote phishing virtually impossible.
+            </p>
+            <a href="https://www.amazon.com/dp/B08DHL1YDL" target="_blank" rel="sponsored nofollow noopener" class="btn btn-cta" style="width: auto;">Check Price on Amazon</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Newsletter / Guide CTA -->
+    <section class="section" id="guides">
+      <div class="container">
+        <div class="newsletter-box">
+          <span class="mono-badge">// FREE RESOURCE</span>
+          <h2 style="margin-top: 0.75rem;">Get my free secure-setup checklist</h2>
+          <p style="color: var(--text-secondary); margin-top: 0.5rem;">
+            A step-by-step hardening guide for macOS, Linux, SSH keys, and hardware 2FA—sent straight to your inbox.
+          </p>
+          <form class="newsletter-form" id="newsletterForm">
+            <label for="newsletterEmail" class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;">Email address</label>
+            <input type="email" id="newsletterEmail" class="newsletter-input" placeholder="you@domain.com" required>
+            <button type="submit" class="btn btn-primary">Send Checklist</button>
+          </form>
+          <p class="newsletter-status" id="newsletterStatus" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <a href="#" class="logo">
+          <span class="logo-dev">DevSecure</span><span class="logo-lab">Lab</span>
+        </a>
+        <ul class="footer-links">
+          <li><a href="#gear-grid">Gear</a></li>
+          <li><a href="#top-pick">Top Pick</a></li>
+          <li><a href="#guides">Guides</a></li>
+          <li><a href="/privacy-policy">Privacy Policy</a></li>
+          <li><a href="#disclosure">Affiliate Disclosure</a></li>
+        </ul>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 DevSecure Lab. All rights reserved.</p>
+        <p>As an Amazon Associate, I earn from qualifying purchases.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="store.js" defer></script>
+</body>
+</html>
